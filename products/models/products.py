@@ -1,55 +1,53 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
-
-from .like import Like
-from .news import News
-from users.models.user import User
+from .tag import Tag
+from .categories import Category
 
 
-class Comment(models.Model):
-    comment_id = models.AutoField(
+class Product(models.Model):
+    product_id = models.AutoField(
         primary_key=True,
-        verbose_name='ID комментария',
+        verbose_name='ID товара',
     )
-    text = models.TextField(
+    name = models.TextField(
         max_length=300,
-        verbose_name='Текст комментария',
+        verbose_name='Название товара',
+    )
+    description = models.TextField(
+        max_length=300,
+        verbose_name='Описание товара',
     )
     added = models.DateTimeField(
         default=timezone.now,
         verbose_name='Дата добавления',
     )
-    news = models.ForeignKey(
-        News,
-        on_delete=models.CASCADE,
-        related_name='comments'
+    Last_modified_date = models.DateTimeField(
+        default=timezone.now,
+        verbose_name='Дата последнего изменения',
     )
-    author = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name='comments',
-        verbose_name='Какой пользователь оставил',
-        null=True,
-        blank=True,
+    price = models.FloatField(
+        verbose_name='Цена товара',
     )
-    as_author = models.BooleanField(
-        verbose_name='Комментарий от автора',
-        default=False,
+    count = models.FloatField(
+        verbose_name='Колличество товара',
     )
-    likes = GenericRelation(Like)
-
-    @property
-    def total_likes(self) -> int:
-        return self.likes.count()
-
-    def get_date(self):
-        return self.added.strftime("%d.%m.%Y")
-
-    def __str__(self) -> str:
-        return self.text
+    # product_image = models.ImageField(
+    #     upload_to='covers/',
+    #     verbose_name="Фото",
+    # )
+    tags = models.ManyToManyField(
+        Tag,
+        verbose_name='Теги',
+        blank=True
+    )
+    category = models.ManyToManyField(
+        Category,
+        verbose_name='Категория',
+        blank=True
+    )
 
     class Meta:
-        verbose_name = "Комментарий"
-        verbose_name_plural = "Комментарий"
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
         ordering = ['-added']

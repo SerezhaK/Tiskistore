@@ -13,3 +13,5 @@ django-cors-headers==4.2.0
 drf-extra-fields==3.7.0
 django-redis==5.2.0
 drf-extra-fields==3.7.0
+markdown==3.0.0
+django-filter==1.0.1
