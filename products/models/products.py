@@ -1,8 +1,9 @@
-from django.contrib.contenttypes.fields import GenericRelation
+# from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.utils import timezone
-from .tag import Tag
+
 from .categories import Category
+from .tag import Tag
 
 
 class Product(models.Model):
@@ -22,7 +23,7 @@ class Product(models.Model):
         default=timezone.now,
         verbose_name='Дата добавления',
     )
-    Last_modified_date = models.DateTimeField(
+    last_modified_date = models.DateTimeField(
         default=timezone.now,
         verbose_name='Дата последнего изменения',
     )
@@ -32,20 +33,26 @@ class Product(models.Model):
     count = models.FloatField(
         verbose_name='Колличество товара',
     )
-    # product_image = models.ImageField(
-    #     upload_to='covers/',
-    #     verbose_name="Фото",
-    # )
+    product_image = models.ImageField(
+        upload_to='covers/',
+        verbose_name="Фото",
+    )
     tags = models.ManyToManyField(
         Tag,
         verbose_name='Теги',
         blank=True
     )
-    category = models.ManyToManyField(
+    categories = models.ManyToManyField(
         Category,
         verbose_name='Категория',
         blank=True
     )
+
+    def __str__(self):
+        return self.name
+
+    def get_date(self):
+        return self.added.strftime("%d.%m.%Y")
 
     class Meta:
         verbose_name = "Товар"

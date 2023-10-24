@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+# import os
 from pathlib import Path
-import os
+
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,6 +25,7 @@ Env.read_env(str(BASE_DIR / ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
+DOCKER = env('DOCKER', default=False)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,6 +47,8 @@ INSTALLED_APPS = [
     'djoser',
     'drf_spectacular',
     'products',
+    'users',
+    "phonenumber_field",
 
 ]
 
@@ -125,20 +129,29 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATIC_URL = "/static/"
+STATIC_ROOT = 'static'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-# DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'
+
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', ]
+
+# AUTH_USER_MODEL = 'users.User'
+
 # ADMIN_MEDIA_PREFIX = '/admin/media/'
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -146,3 +159,5 @@ REST_FRAMEWORK = {
     #
     # 'EXCEPTION_HANDLER': 'core.exceptions.custom_exception_handler',
 }
+
+# CART_SESSION_ID = 'cart'

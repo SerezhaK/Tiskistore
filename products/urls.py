@@ -1,9 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
+from .views.categories import CategoriesViewSet
 from .views.products import ProductsViewSet
 from .views.tag import TagViewSet
-from .views.categories import CategoriesViewSet
 
 router = SimpleRouter()
 router.register(
@@ -12,9 +12,9 @@ router.register(
     basename='products'
 )
 router.register(
-    'tag',
+    'tags',
     TagViewSet,
-    basename='tag'
+    basename='tags'
 )
 router.register(
     'categories',
