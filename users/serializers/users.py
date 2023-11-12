@@ -38,6 +38,8 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
         try:
             user.set_password(password)
             user.save()
+            return user
+
         except serializers.ValidationError as exc:
             user.delete()
             raise exc

@@ -25,15 +25,19 @@ Env.read_env(str(BASE_DIR / ".env"))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
+
 DOCKER = env('DOCKER', default=False)
 
-# SECURITY WARNING: don't run with debug turned on in production!
+EMAIL_CONFIRM = env.bool('EMAIL_CONFIRM')
+
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
-# Application definition
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
 
+# noinspection PyUnresolvedReferences
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -46,12 +50,16 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'drf_spectacular',
+    'phone_login',
     'products',
     'users',
+    'order',
     "phonenumber_field",
+    "cart"
 
 ]
 
+# noinspection PyUnresolvedReferences
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -64,6 +72,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "Tiskistore.urls"
 
+# noinspection PyUnresolvedReferences
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -139,12 +148,11 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = 'media'
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', ]
 
-# AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'users.User'
 
 # ADMIN_MEDIA_PREFIX = '/admin/media/'
 
@@ -161,3 +169,16 @@ REST_FRAMEWORK = {
 }
 
 # CART_SESSION_ID = 'cart'
+if EMAIL_CONFIRM:
+    IT_BEL_USER_CONFIRM_KEY = 'user_confirm_{token}'
+    IT_BEL_PASSWORD_RESET_CODE = 'password_reset_{token}'
+    IT_BEL_USER_CONFIRM_TIMEOUT = 300
+
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
+
+    EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')

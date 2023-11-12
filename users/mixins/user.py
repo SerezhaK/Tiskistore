@@ -1,4 +1,3 @@
-
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
 # from rest_framework.permissions import IsAuthenticated
@@ -23,7 +22,7 @@ class UserMixin:
         return Response(self.get_serializer(request.user).data)
 
     @extend_schema(tags=['profile'])
-    @profile.mapping.patch1
+    @profile.mapping.patch
     def profile_update(self, request: Request):
         serializer = self.get_serializer(
             instance=request.user, data=request.data)

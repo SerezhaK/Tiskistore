@@ -12,6 +12,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('products.urls')),
     path('api/', include('users.urls')),
+    path('api/', include('order.urls')),
+    path('api/', include('cart.urls')),
+    path('api/auth/token/', include('auth.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema')),
 ]

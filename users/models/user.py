@@ -30,7 +30,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         blank=False,
         null=False,
         verbose_name="Номер пользователя",
-        help_text="phone number",
+        help_text="phone number in format +71234567890",
         unique=True,
     )
     date_joined = models.DateTimeField(

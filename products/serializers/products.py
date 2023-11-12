@@ -1,8 +1,8 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 
-from ..models.categories import Category
-from ..models.products import Product
+from ..models.category import Category
+from ..models.product import Product
 from ..models.tag import Tag
 
 
@@ -14,7 +14,7 @@ class ProductsSerializer(serializers.ModelSerializer):
     categories = serializers.PrimaryKeyRelatedField(
         queryset=Category.objects.all(), many=True
     )
-    added = serializers.SerializerMethodField()
+    date_joined = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -22,10 +22,10 @@ class ProductsSerializer(serializers.ModelSerializer):
             'product_id',
             'name',
             'description',
-            'added',
+            'date_joined',
             'last_modified_date',
             'price',
-            'count',
+            'quantity',
             'product_image',
             'tags',
             'categories'
@@ -42,5 +42,5 @@ class ProductsSerializer(serializers.ModelSerializer):
         products.categories.set(categories)
         return products
 
-    def get_added(self, obj: Product) -> str:
+    def get_date_joined(self, obj: Product) -> str:
         return obj.get_date()
