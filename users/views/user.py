@@ -7,6 +7,7 @@ from users.serializers.users import (UserCreateCustomSerializer,
 from ..mixins.email import EmailMixin
 from ..mixins.user import UserMixin
 from ..models.user import User
+from ..permissions import UserOwnerOrReadOnly
 # from ..serializers.users import
 from ..services import send_email_verification
 
@@ -22,7 +23,7 @@ class UserViewSet(mixins.RetrieveModelMixin,
                   ):
     queryset = User.objects.all()
 
-    # permission_classes = [UserOwnerOrReadOnly, ]
+    permission_classes = [UserOwnerOrReadOnly]
     serializer_class = UserCreateCustomSerializer
 
     def get_serializer_class(self):

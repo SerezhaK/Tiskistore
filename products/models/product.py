@@ -2,7 +2,7 @@
 from django.db import models
 from django.utils import timezone
 
-from .categories import Category
+from .category import Category
 from .tag import Tag
 
 
@@ -19,18 +19,20 @@ class Product(models.Model):
         max_length=300,
         verbose_name='Описание товара',
     )
-    added = models.DateTimeField(
+    date_joined = models.DateTimeField(
         default=timezone.now,
         verbose_name='Дата добавления',
+        help_text="date of joined in format dd.mm.yyyy",
     )
     last_modified_date = models.DateTimeField(
         default=timezone.now,
         verbose_name='Дата последнего изменения',
+        help_text="date of last changes in format dd.mm.yyyy",
     )
     price = models.FloatField(
         verbose_name='Цена товара',
     )
-    count = models.FloatField(
+    quantity = models.FloatField(
         verbose_name='Колличество товара',
     )
     product_image = models.ImageField(
@@ -52,9 +54,9 @@ class Product(models.Model):
         return self.name
 
     def get_date(self):
-        return self.added.strftime("%d.%m.%Y")
+        return self.date_joined.strftime("%d.%m.%Y")
 
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
-        ordering = ['-added']
+        ordering = ['-date_joined']

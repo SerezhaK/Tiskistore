@@ -5,9 +5,9 @@ from rest_framework.decorators import action
 from rest_framework.request import HttpRequest
 from rest_framework.response import Response
 
-from products.models.categories import Category
+from products.models.category import Category
 # from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from products.models.products import Product
+from products.models.product import Product
 from products.serializers.categories import CategoriesSerializer
 from products.serializers.products import ProductsSerializer
 

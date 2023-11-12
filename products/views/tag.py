@@ -5,7 +5,7 @@ from rest_framework.decorators import action
 from rest_framework.request import HttpRequest
 from rest_framework.response import Response
 
-from products.models.products import Product
+from products.models.product import Product
 from products.models.tag import Tag
 from products.serializers.products import ProductsSerializer
 from products.serializers.tag import TagSerializer
