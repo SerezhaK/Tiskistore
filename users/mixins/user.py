@@ -6,11 +6,7 @@ from rest_framework.response import Response
 
 from ..models.user import User
 
-
-# from ..permissions.user import UserOwnerOrReadOnly
-# from ..serializers.author import AuthorSerializer
-
-
+#Vadim chmo(K)
 class UserMixin:
     @extend_schema(tags=['profile'])
     @action(
