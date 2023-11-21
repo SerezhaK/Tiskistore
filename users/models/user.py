@@ -16,21 +16,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(
         verbose_name="Фамилия Имя пользователя",
         max_length=150,
-        null=True,
-        blank=True
-    )
-    email = models.EmailField(
-        blank=False,
         null=False,
-        verbose_name="Почта пользователя",
-        help_text="Email",
-        unique=True,
+        blank=False
     )
     phone_number = PhoneNumberField(
         blank=False,
         null=False,
         verbose_name="Номер пользователя",
-        help_text="phone number in format +71234567890",
+        help_text="phone number in format +79998887766",
         unique=True,
     )
     date_joined = models.DateTimeField(
@@ -46,11 +39,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         default=True
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'phone_number'
     objects = UserManager()
 
     def __str__(self):
-        return f"{self.username} ({self.email})"
+        return f"{self.username} ({self.phone_number})"
 
     def get_date(self):
         return self.date_joined.strftime("%d.%m.%Y")

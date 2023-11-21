@@ -1,12 +1,12 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
-# from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.request import HttpRequest
 from rest_framework.response import Response
 
 from products.models.product import Product
 from products.models.tag import Tag
+from products.permissions import SuperUserOrReadOnly
 from products.serializers.products import ProductsSerializer
 from products.serializers.tag import TagSerializer
 
@@ -16,7 +16,8 @@ class TagViewSet(viewsets.ModelViewSet):
     # queryset = Tag.objects.prefetch_related('tags')
     serializer_class = TagSerializer
 
-    # permission_classes = []
+    permission_classes = [SuperUserOrReadOnly]
+
     # pagination_class = None
 
     @action(

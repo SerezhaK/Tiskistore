@@ -14,7 +14,6 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'user_id',
-            "email",
             "username",
             "phone_number",
             "password",
@@ -57,8 +56,6 @@ class UserListSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username', 'email', "phone_number"]
+        fields = ['username', "phone_number"]
 
 
-class EmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()

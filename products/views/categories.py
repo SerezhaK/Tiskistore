@@ -1,13 +1,12 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
-# from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.request import HttpRequest
 from rest_framework.response import Response
 
 from products.models.category import Category
-# from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from products.models.product import Product
+from products.permissions import SuperUserOrReadOnly
 from products.serializers.categories import CategoriesSerializer
 from products.serializers.products import ProductsSerializer
 
@@ -17,7 +16,8 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     # queryset = Tag.objects.prefetch_related('products')
     serializer_class = CategoriesSerializer
 
-    # permission_classes = []
+    permission_classes = [SuperUserOrReadOnly]
+
     # pagination_class = None
 
     @action(

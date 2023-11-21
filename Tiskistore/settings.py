@@ -19,16 +19,15 @@ from environ import Env
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = Env(DEBUG=(bool, False))
+
 Env.read_env(str(BASE_DIR / ".env"))
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env.str("SECRET_KEY")
 
 DOCKER = env('DOCKER', default=False)
 
-EMAIL_CONFIRM = env.bool('EMAIL_CONFIRM')
+PHONE_NUMBER_CONFIRM = env.bool('PHONE_NUMBER_CONFIRM')
 
 DEBUG = True
 
@@ -50,12 +49,13 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'drf_spectacular',
-    'phone_login',
     'products',
     'users',
     'order',
     "phonenumber_field",
-    "cart"
+    "cart",
+    "smsru",
+    "phone_activation"
 
 ]
 
@@ -158,6 +158,7 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS':
@@ -168,17 +169,24 @@ REST_FRAMEWORK = {
     # 'EXCEPTION_HANDLER': 'core.exceptions.custom_exception_handler',
 }
 
-# CART_SESSION_ID = 'cart'
-if EMAIL_CONFIRM:
-    IT_BEL_USER_CONFIRM_KEY = 'user_confirm_{token}'
-    IT_BEL_PASSWORD_RESET_CODE = 'password_reset_{token}'
-    IT_BEL_USER_CONFIRM_TIMEOUT = 300
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend'
+# ]
 
-    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'smtp.gmail.com'
-    EMAIL_PORT = 587
-    EMAIL_USE_TLS = True
-    EMAIL_USE_SSL = False
+# Configure the phone_number_field (for django-phonenumber-field integration)
+# Check https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#std-setting-PHONENUMBER_DEFAULT_REGION
+PHONENUMBER_DB_FORMAT = "NATIONAL"
+PHONENUMBER_DEFAULT_REGION = "RU"
 
-    EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+# Configure the SENDSMS_BACKEND (for django-smsru integration)
+# Check https://github.com/iredun/django-smsru
+if PHONE_NUMBER_CONFIRM:
+    SMS_RU = {
+        # Either password and login or api_id must be specified
+        "API_ID": env.str('API_ID'),
+        "LOGIN": env.str('LOGIN'),
+        "PASSWORD": env.str('PASSWORD'),
+        "TEST": True,  # Sending in test mode defaults to False
+        "SENDER": 'sms',
+        "PARTNER_ID": 1111
+    }
