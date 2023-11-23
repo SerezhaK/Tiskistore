@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
 from rest_framework.request import HttpRequest
 from rest_framework.response import Response
 
@@ -24,6 +25,7 @@ class TagViewSet(viewsets.ModelViewSet):
         methods=['GET', ],
         detail=True,
         url_path='products',
+        permission_classes=[AllowAny]
     )
     def get_tag_products(self, request: HttpRequest, pk: int):
         self.serializer_class = ProductsSerializer

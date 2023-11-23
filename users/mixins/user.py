@@ -1,19 +1,19 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
 from ..models.user import User
 
-#Vadim chmo(K)
+
 class UserMixin:
     @extend_schema(tags=['profile'])
     @action(
         methods=['GET'],
         url_path='profile',
         detail=False,
-        # permission_classes=[UserOwnerOrReadOnly, IsAuthenticated, ],
+        permission_classes=[IsAuthenticated],
     )
     def profile(self, request: Request):
         return Response(self.get_serializer(request.user).data)

@@ -1,6 +1,8 @@
-from rest_framework import serializers
-from datetime import datetime
 import random
+from datetime import datetime
+
+from rest_framework import serializers
+
 from order.models.order import Order
 from users.serializers.users import UserListSerializer
 
@@ -46,6 +48,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         order = Order.objects.get(pk=instance.id)
-        if order.status != validated_data['status'] and not self.context["request"].user.is_staff:
+        if (order.status != validated_data['status']
+                and not self.context["request"].user.is_staff):
             raise serializers.ValidationError("Only admin can update status")
         return super().update(instance, validated_data)

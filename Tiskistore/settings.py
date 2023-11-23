@@ -55,7 +55,6 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "cart",
     "smsru",
-    "phone_activation"
 
 ]
 
@@ -158,7 +157,6 @@ AUTH_USER_MODEL = 'users.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PAGINATION_CLASS':
@@ -169,10 +167,16 @@ REST_FRAMEWORK = {
     # 'EXCEPTION_HANDLER': 'core.exceptions.custom_exception_handler',
 }
 
-# AUTHENTICATION_BACKENDS = [
-#     'django.contrib.auth.backends.ModelBackend'
-# ]
+FIXTURE_DIRS = [
+    'fixtures',
+]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
+    }
+}
 # Configure the phone_number_field (for django-phonenumber-field integration)
 # Check https://django-phonenumber-field.readthedocs.io/en/latest/reference.html#std-setting-PHONENUMBER_DEFAULT_REGION
 PHONENUMBER_DB_FORMAT = "NATIONAL"
@@ -181,6 +185,9 @@ PHONENUMBER_DEFAULT_REGION = "RU"
 # Configure the SENDSMS_BACKEND (for django-smsru integration)
 # Check https://github.com/iredun/django-smsru
 if PHONE_NUMBER_CONFIRM:
+    TISKI_STORE_CONFIRM_KEY = 'user_confirm_{token}'
+    TISKI_STORE_RESET_CODE = 'password_reset_{token}'
+    TISKI_STORE_USER_CONFIRM_TIMEOUT = 300
     SMS_RU = {
         # Either password and login or api_id must be specified
         "API_ID": env.str('API_ID'),

@@ -3,8 +3,6 @@ from time import strftime
 
 from rest_framework import serializers
 
-from users.serializers.users import UserListSerializer
-
 from ..product.serializers import ProductSerializer
 from .models import Order, OrderItem
 
@@ -36,7 +34,8 @@ class OrderSerializer(serializers.ModelSerializer):
     order_items = OrderItemSerializer(many=True, read_only=True)
 
     def generate_order_number(self):
-        """ Создание номера заказа: Текущее время + id пользователя + рандомное число
+        """ Создание номера заказа:
+         Текущее время + id пользователя + рандомное число
         """
         return '{time_now}{user_id}{random_int}'.format(
             time_now=strftime('%Y%m%d%H%M%S'),

@@ -1,13 +1,15 @@
 from rest_framework import permissions
 from rest_framework.request import HttpRequest
 
-from users.models.user import User
-
 
 class SuperUserOrReadOnly(permissions.BasePermission):
-    def has_object_permission(self, request: HttpRequest, view, obj: User):
+    def has_permission(self, request: HttpRequest, view):
         if request.method in permissions.SAFE_METHODS:
             return True
-        if request.user.is_staff:
+        return request.user.is_staff
+
+    def has_object_permission(
+            self, request: HttpRequest, view, obj):
+        if request.method in permissions.SAFE_METHODS:
             return True
-        return False
+        return request.user.is_superuser
