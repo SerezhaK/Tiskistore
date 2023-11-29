@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from products.models.category import Category
 from products.models.product import Product
-from products.permissions import SuperUserOrReadOnly
+from products.permissions import StaffUserOrReadOnly
 from products.serializers.categories import CategoriesSerializer
 from products.serializers.products import ProductsSerializer
 
@@ -17,7 +17,7 @@ class CategoriesViewSet(viewsets.ModelViewSet):
     # queryset = Tag.objects.prefetch_related('products')
     serializer_class = CategoriesSerializer
 
-    permission_classes = [SuperUserOrReadOnly]
+    permission_classes = [StaffUserOrReadOnly]
 
     # pagination_class = None
 

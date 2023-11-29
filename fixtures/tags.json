@@ -1,0 +1,114 @@
+[
+  {
+    "model": "products.tag",
+    "pk": 1,
+    "fields": {
+      "name": "string",
+      "slug": "yPI0CN32H411rSJ1d_P5IWUpnF4C-IMGhMY"
+    }
+  },
+  {
+    "model": "products.tag",
+    "pk": 2,
+    "fields": {
+      "name": "string",
+      "slug": "yPI0CN32H411rSJ1d_P5IWUpnF4C-IMGhMY"
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "1",
+      "description": "1",
+      "date_joined": "2023-11-23T15:19:25.704Z",
+      "last_modified_date": "2023-11-23T15:19:12.303Z",
+      "price": 1111.0,
+      "quantity": 0.0,
+      "product_image": "",
+      "tags": [],
+      "categories": []
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "2",
+      "description": "2",
+      "date_joined": "2023-11-23T15:19:41.675Z",
+      "last_modified_date": "2023-11-23T15:19:12.303Z",
+      "price": 787878.0,
+      "quantity": 0.0,
+      "product_image": "",
+      "tags": [],
+      "categories": []
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "3",
+      "description": "string",
+      "date_joined": "2023-11-23T15:21:24.918Z",
+      "last_modified_date": "2023-11-23T15:21:15.681Z",
+      "price": 1234.0,
+      "quantity": 0.0,
+      "product_image": "",
+      "tags": [
+        1
+      ],
+      "categories": [
+      ]
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$7s2BmOaMYm4abuZk5i7Wsa$LHKpm1AfLUzR8Aa9hWC5Nrr6+qME7ZPSTgGhSM9kfUM=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "+79999999999",
+      "phone_number": "+79999999999",
+      "date_joined": "2023-11-23T15:18:48.566Z",
+      "is_staff": true,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$yd9JfoRn0wpFY4dA7MDh0Y$Sqb9rixWk5R4akGzh0I6jvzqUS6y2CTAjT6vI7jzc20=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "+79999999998",
+      "phone_number": "+79999999998",
+      "date_joined": "2023-11-23T15:18:56.788Z",
+      "is_staff": false,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "users.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$h0cMPyURrIez872cFDeJf5$oFgMTjLXiUtw1N8rUnTsVPuo5Vg+Juyjad8XdrmLHi0=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "+79999999997",
+      "phone_number": "+79999999997",
+      "date_joined": "2023-11-23T15:19:05.459Z",
+      "is_staff": false,
+      "is_active": true,
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

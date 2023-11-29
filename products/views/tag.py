@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from products.models.product import Product
 from products.models.tag import Tag
-from products.permissions import SuperUserOrReadOnly
+from products.permissions import StaffUserOrReadOnly
 from products.serializers.products import ProductsSerializer
 from products.serializers.tag import TagSerializer
 
@@ -17,7 +17,7 @@ class TagViewSet(viewsets.ModelViewSet):
     # queryset = Tag.objects.prefetch_related('tags')
     serializer_class = TagSerializer
 
-    permission_classes = [SuperUserOrReadOnly]
+    permission_classes = [StaffUserOrReadOnly]
 
     # pagination_class = None
 
