@@ -3,10 +3,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from users.models.user import User
-
-from products.models.product import Product
 from products.models.category import Category
+from products.models.product import Product
+from users.models.user import User
 
 
 class CategoriesTestCase(APITestCase):
@@ -32,7 +31,10 @@ class CategoriesTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_get_category_products(self):
-        url = reverse("categories-detail", args=[self.product.pk]) + "products/"
+        url = reverse(
+            "categories-detail",
+            args=[self.product.pk]
+        ) + "products/"
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)

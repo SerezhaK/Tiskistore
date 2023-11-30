@@ -3,10 +3,9 @@ from datetime import datetime
 
 from rest_framework import serializers
 
+from .item import ItemSerializer
 from order.models.order import Order
 from users.serializers.users import UserListSerializer
-
-from .item import ItemSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):

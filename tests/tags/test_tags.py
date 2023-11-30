@@ -3,10 +3,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from users.models.user import User
-
 from products.models.product import Product
 from products.models.tag import Tag
+from users.models.user import User
 
 
 class TagsTestCase(APITestCase):

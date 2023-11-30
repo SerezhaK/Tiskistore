@@ -3,8 +3,6 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
-from users.models.user import User
-
 from products.models.product import Product
 from products.models.tag import Tag
 
@@ -67,6 +65,3 @@ class TagsTestCase(APITestCase):
         response = self.client.delete(url)
 
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
-2
