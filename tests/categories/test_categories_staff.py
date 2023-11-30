@@ -9,7 +9,7 @@ from products.models.product import Product
 from products.models.tag import Tag
 
 
-class TagsTestCase(APITestCase):
+class CategoriesTestCase(APITestCase):
     fixtures = ['fixtures/tags.json']
 
     def setUp(self):

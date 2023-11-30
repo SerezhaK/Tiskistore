@@ -14,12 +14,8 @@ from products.serializers.tag import TagSerializer
 
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
-    # queryset = Tag.objects.prefetch_related('tags')
     serializer_class = TagSerializer
-
     permission_classes = [StaffUserOrReadOnly]
-
-    # pagination_class = None
 
     @action(
         methods=['GET', ],

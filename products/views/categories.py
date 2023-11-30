@@ -13,13 +13,9 @@ from products.serializers.products import ProductsSerializer
 
 
 class CategoriesViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.prefetch_related('products')
-    # queryset = Tag.objects.prefetch_related('products')
+    queryset = Category.objects.all()
     serializer_class = CategoriesSerializer
-
     permission_classes = [StaffUserOrReadOnly]
-
-    # pagination_class = None
 
     @action(
         methods=['GET', ],

@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
 from users.models.user import User
+
 from products.models.product import Product
 
 
@@ -28,7 +29,7 @@ class ProductsTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_products_post(self):
-        url = reverse("products-detail", args=[self.product.pk])
+        url = reverse("products-list")
         post_data = {
             "name": "test_post_name",
             "description": "test_post_description",
@@ -42,7 +43,7 @@ class ProductsTestCase(APITestCase):
             ]
         }
         response = self.client.post(url, post_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_products_put(self):
         url = reverse("products-detail", args=[self.product.pk])
@@ -65,13 +66,13 @@ class ProductsTestCase(APITestCase):
     def test_products_patch(self):
         url = reverse("products-detail", args=[self.product.pk])
 
-        put_data = {
+        patch_data = {
             'name': 'test_name',
             "description": "test_description",
             "price": 100010.0,
             "quantity": 101.0
         }
-        response = self.client.patch(url, put_data, format='json')
+        response = self.client.patch(url, patch_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_products_delete(self):

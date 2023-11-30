@@ -13,12 +13,9 @@ class TagsTestCase(APITestCase):
     fixtures = ['fixtures/tags.json']
 
     def setUp(self):
-        self.staff_user = User.objects.get(user_id=1)
         self.client = APIClient()
-        self.client.force_authenticate(user=self.staff_user)
         self.product = Product.objects.get(pk=1)
         self.tag = get_object_or_404(Tag, id=1)
-        # self.tag = Tag.objects.get(id=1)
 
     def test_tags_get(self):
         url = reverse('tags-list')
@@ -45,7 +42,7 @@ class TagsTestCase(APITestCase):
             "slug": "test_test"
         }
         response = self.client.post(url, post_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_tags_put(self):
         url = reverse("tags-detail", args=[self.tag.pk])
@@ -54,7 +51,7 @@ class TagsTestCase(APITestCase):
             "slug": "test_test"
         }
         response = self.client.put(url, put_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_tags_patch(self):
         url = reverse("tags-detail", args=[self.tag.pk])
@@ -63,10 +60,13 @@ class TagsTestCase(APITestCase):
             "slug": "test_test"
         }
         response = self.client.patch(url, patch_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_ptags_delete(self):
+    def test_tags_delete(self):
         url = reverse("tags-detail", args=[self.tag.pk])
         response = self.client.delete(url)
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+2

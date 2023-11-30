@@ -12,5 +12,3 @@ class ProductsViewSet(viewsets.ModelViewSet):
     serializer_class = ProductsSerializer
     permission_classes = [StaffUserOrReadOnly]
     lookup_field = 'pk'
-    # filter_backends = []
-    # search_fields = ['title']
