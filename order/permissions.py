@@ -5,6 +5,10 @@ from users.models.user import User
 
 
 class UserOwner(permissions.BasePermission):
+    def has_permission(self,request: HttpRequest, view):
+        if not request.user.is_authenticated:
+            return False
+        return True
     def has_object_permission(self, request: HttpRequest, view, obj: User):
         if not request.user.is_authenticated:
             return False

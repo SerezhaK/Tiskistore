@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # import os
 from pathlib import Path
-
+import os
 from environ import Env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,6 +29,7 @@ DOCKER = env('DOCKER', default=False)
 
 PHONE_NUMBER_CONFIRM = env.bool('PHONE_NUMBER_CONFIRM')
 
+# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -93,12 +94,14 @@ WSGI_APPLICATION = "Tiskistore.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+if DOCKER:
+    from .db_config import DOCKER_DB
+
+    DATABASES = DOCKER_DB
+else:
+    from .db_config import LOCAL_DB
+
+    DATABASES = LOCAL_DB
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -140,8 +143,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'static'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 
