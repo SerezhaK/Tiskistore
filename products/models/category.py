@@ -7,7 +7,8 @@ class Category(models.Model):
         verbose_name='Название категории',
     )
     slug = models.SlugField(
-        verbose_name='slug категории'
+        verbose_name='slug категории',
+        unique=True,
     )
 
     class Meta:

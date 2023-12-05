@@ -8,16 +8,15 @@ from users.serializers.users import UserListSerializer
 
 class CartSerializer(serializers.ModelSerializer):
     product = ProductsSerializer(many=False, read_only=True)
-    user = UserListSerializer(read_only=True)
 
     class Meta:
         model = Cart
         fields = (
-            'user',
             'product',
             'amount',
             'total_price',
         )
+
 
 
 class CartDetailSerializer(serializers.Serializer):

@@ -7,7 +7,8 @@ class Tag(models.Model):
         verbose_name='Название тега',
     )
     slug = models.SlugField(
-        verbose_name='slug тега'
+        verbose_name='slug тега',
+        unique=True,
     )
 
     class Meta:

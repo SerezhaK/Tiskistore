@@ -6,77 +6,79 @@ from products.models.product import Product
 from users.models.user import User
 
 
-class CartsTestCase(APITestCase):
-    fixturs = ['fixtures/products.json']
+class CartTestCase(APITestCase):
+    fixtures = ['fixtures/carts.json']
 
     def setUp(self):
-        self.user = User.objects.get(user_id=2)
-        self.client = APIClient()
-        self.client.force_authenticate(user=self.user)
-        self.product1 = Product.objects.get(pk=1)
-        self.product2 = Product.objects.get(pk=2)
+        self.user_owner = User.objects.get(user_id=2)
+        self.client_owner = APIClient()
+        self.client_owner.force_authenticate(user=self.user_owner)
 
-    def test_products_get(self):
-        url = reverse('products-list')
-        response = self.client.get(url)
+        self.product = Product.objects.get(pk=1)
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    def test_product_id_get(self):
-        url = reverse("products-detail", args=[self.product.pk])
-        response = self.client.get(url)
+    def test_cart_get(self):
+        url = reverse('cart-list')
+        response = self.client_owner.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_products_post(self):
-        url = reverse("products-detail", args=[self.product.pk])
+    def test_add_to_cart(self):
+        url = reverse('cart-list')
         post_data = {
-            "name": "test_post_name",
-            "description": "test_post_description",
-            "last_modified_date": "1000-10-10T00:00:00.157Z",
-            "price": 111.0,
-            "quantity": 111.0,
-            "product_image": "",
-            "tags": [
-            ],
-            "categories": [
-            ]
+            "product": self.product,
+            "amount": 11
         }
-        response = self.client.post(url, post_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        response = self.client_owner.post(url, post_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_products_put(self):
-        url = reverse("products-detail", args=[self.product.pk])
+    def test_cart_product_id_get(self):
+        url = reverse("cart-detail", args=[self.product.pk])
+        response = self.client_owner.get(url)
 
-        put_data = {
-            "name": "test_name",
-            "description": "test_description",
-            "last_modified_date": "2023-11-29T08:32:18.157Z",
-            "price": 100010.0,
-            "quantity": 101.0,
-            "product_image": "",
-            "tags": [
-            ],
-            "categories": [
-            ]
-        }
-        response = self.client.put(url, put_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_products_patch(self):
-        url = reverse("products-detail", args=[self.product.pk])
-
-        patch_data = {
-            'name': 'test_name',
-            "description": "test_description",
-            "price": 100010.0,
-            "quantity": 101.0
-        }
-        response = self.client.patch(url, patch_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-
-    def test_products_delete(self):
-        url = reverse("products-detail", args=[self.product.pk])
-        response = self.client.delete(url)
-
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    # def test_cart_put(self):
+    #     post_url = reverse('cart-list')
+    #     post_data = {
+    #         "product": self.product,
+    #         "amount": 11
+    #     }
+    #     self.client_owner.post(post_url, post_data)
+    #
+    #     url = reverse("cart-detail", args=[self.product.pk])
+    #     put_data = {
+    #         "product": self.product,
+    #         "amount": 111123456
+    #     }
+    #     response = self.client_owner.put(url, put_data)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def test_cart_patch(self):
+    #     post_url = reverse('cart-list')
+    #     post_data = {
+    #         "product": self.product,
+    #         "amount": 11
+    #     }
+    #     self.client_owner.post(post_url, post_data)
+    #
+    #     url = reverse("cart-detail", args=[self.product.pk])
+    #     patch_data = {
+    #         "product": self.product,
+    #         "amount": 111123456
+    #     }
+    #     response = self.client_owner.put(url, patch_data)
+    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+    #
+    # def test_cart_delete(self):
+    #     post_url = reverse('cart-list')
+    #     post_data = {
+    #         "product": self.product,
+    #         "amount": 11
+    #     }
+    #     self.client_owner.post(post_url, post_data)
+    #
+    #     url = reverse("cart-detail", args=[self.product])
+    #     response = self.client_owner.delete(url)
+    #
+    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+    #
