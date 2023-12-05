@@ -22,61 +22,61 @@
 #
 #         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    # def test_add_to_cart(self):
-    #     url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #
-    #     response = self.client.post(url, post_data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_product_id_get(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     self.client.post(post_url, post_data, format='json')
-    #
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     response = self.client.get(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_put(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     post_resp = self.client.post(post_url, post_data, format='json')
-    #
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     put_data = {
-    #         "amount": 111
-    #     }
-    #     response = self.client.put(url, put_data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_patch(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     self.client.post(post_url, post_data, format='json')
-    #
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     patch_data = {
-    #         "amount": 111
-    #     }
-    #     response = self.client.put(url, patch_data, format='json')
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_delete(self):
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     response = self.client.delete(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
+# def test_add_to_cart(self):
+#     url = reverse('cart-list')
+#     post_data = {
+#         "product": self.product,
+#         "amount": 11
+#     }
+#
+#     response = self.client.post(url, post_data, format='json')
+#     self.assertEqual(response.status_code, status.HTTP_200_OK)
+#
+# def test_cart_product_id_get(self):
+#     post_url = reverse('cart-list')
+#     post_data = {
+#         "product": self.product,
+#         "amount": 11
+#     }
+#     self.client.post(post_url, post_data, format='json')
+#
+#     url = reverse("cart-detail", args=[self.product.pk])
+#     response = self.client.get(url)
+#
+#     self.assertEqual(response.status_code, status.HTTP_200_OK)
+#
+# def test_cart_put(self):
+#     post_url = reverse('cart-list')
+#     post_data = {
+#         "product": self.product,
+#         "amount": 11
+#     }
+#     post_resp = self.client.post(post_url, post_data, format='json')
+#
+#     url = reverse("cart-detail", args=[self.product.pk])
+#     put_data = {
+#         "amount": 111
+#     }
+#     response = self.client.put(url, put_data, format='json')
+#     self.assertEqual(response.status_code, status.HTTP_200_OK)
+#
+# def test_cart_patch(self):
+#     post_url = reverse('cart-list')
+#     post_data = {
+#         "product": self.product,
+#         "amount": 11
+#     }
+#     self.client.post(post_url, post_data, format='json')
+#
+#     url = reverse("cart-detail", args=[self.product.pk])
+#     patch_data = {
+#         "amount": 111
+#     }
+#     response = self.client.put(url, patch_data, format='json')
+#     self.assertEqual(response.status_code, status.HTTP_200_OK)
+#
+# def test_cart_delete(self):
+#     url = reverse("cart-detail", args=[self.product.pk])
+#     response = self.client.delete(url)
+#
+#     self.assertEqual(response.status_code, status.HTTP_200_OK)

@@ -18,7 +18,6 @@ class CartSerializer(serializers.ModelSerializer):
         )
 
 
-
 class CartDetailSerializer(serializers.Serializer):
     user = UserListSerializer(read_only=True)
     product = serializers.PrimaryKeyRelatedField(
