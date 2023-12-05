@@ -29,7 +29,7 @@ services:
     command: |
       bash -c "python3 manage.py makemigrations;
         python3 manage.py migrate;
-        python3 manage.py loaddata fixtures/data.json;
+        python -Xutf8 manage.py loaddata .\data.json;
         gunicorn Tiskistore.wsgi:application --bind 0:8000"
 
     environment:
