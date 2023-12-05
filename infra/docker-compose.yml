@@ -29,7 +29,7 @@ services:
     command: |
       bash -c "python3 manage.py makemigrations;
         python3 manage.py migrate;
-        python -Xutf8 manage.py loaddata .\data.json;
+        python -Xutf8 manage.py loaddata data.json;
         gunicorn Tiskistore.wsgi:application --bind 0:8000"
 
     environment:
@@ -41,7 +41,7 @@ services:
     restart: always
     ports:
       - 80:80
-    volumes:  
+    volumes:
       - ./default.conf:/etc/nginx/conf.d/default.conf
       - static_dir:/etc/nginx/html/static/
       - media_dir:/etc/nginx/html/media/
