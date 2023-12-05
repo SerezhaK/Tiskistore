@@ -1,5 +1,13 @@
 [
   {
+    "model": "authtoken.token",
+    "pk": "fb27473f3aa4009fa4b9a245d13dc505cf86fe24",
+    "fields": {
+      "user": 1,
+      "created": "2023-12-05T08:28:24.623Z"
+    }
+  },
+  {
     "model": "products.category",
     "pk": 1,
     "fields": {
@@ -29,6 +37,22 @@
     "fields": {
       "name": "string",
       "slug": "yPI0CN32H411rSJ1d_P5IWUpnF4C-IMGhMY"
+    }
+  },
+  {
+    "model": "products.tag",
+    "pk": 3,
+    "fields": {
+      "name": "free",
+      "slug": "fre1"
+    }
+  },
+  {
+    "model": "products.tag",
+    "pk": 4,
+    "fields": {
+      "name": "not free",
+      "slug": "borfre"
     }
   },
   {
@@ -81,15 +105,55 @@
     }
   },
   {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "product n1",
+      "description": "very intersting!!!!!!!!!!",
+      "date_joined": "2023-12-05T08:45:54.606Z",
+      "last_modified_date": "2023-12-05T08:30:52.201Z",
+      "price": 100.0,
+      "quantity": 0.0,
+      "product_image": "",
+      "tags": [
+        3,
+        2,
+        1
+      ],
+      "categories": [
+        1
+      ]
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "product n2",
+      "description": "very intersting!!!!!!!!!!",
+      "date_joined": "2023-12-05T08:52:37.727Z",
+      "last_modified_date": "2023-12-05T08:30:52.201Z",
+      "price": 11201.0,
+      "quantity": 1111111.0,
+      "product_image": "",
+      "tags": [
+        4
+      ],
+      "categories": [
+        2
+      ]
+    }
+  },
+  {
     "model": "users.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$600000$7s2BmOaMYm4abuZk5i7Wsa$LHKpm1AfLUzR8Aa9hWC5Nrr6+qME7ZPSTgGhSM9kfUM=",
+      "password": "pbkdf2_sha256$600000$ciSNX5E6y5XbUjU1vcq4uT$nQE4Jsi3Ddpp+e3Es77OMSsHHQ343/TmkRfJOp1u1wM=",
       "last_login": null,
       "is_superuser": false,
       "username": "+79999999999",
       "phone_number": "+79999999999",
-      "date_joined": "2023-11-23T15:18:48.566Z",
+      "date_joined": "2023-12-05T08:17:56.421Z",
       "is_staff": true,
       "is_active": true,
       "groups": [],
@@ -100,12 +164,12 @@
     "model": "users.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$600000$yd9JfoRn0wpFY4dA7MDh0Y$Sqb9rixWk5R4akGzh0I6jvzqUS6y2CTAjT6vI7jzc20=",
+      "password": "pbkdf2_sha256$600000$aYvRBdr3cY9vC5mLtSeOjV$rTiUbW2+fUup06qHK8xQPIELW8YIU9xJyMs7KY9c7rs=",
       "last_login": null,
       "is_superuser": false,
-      "username": "+79999999998",
-      "phone_number": "+79999999998",
-      "date_joined": "2023-11-23T15:18:56.788Z",
+      "username": "+79996666666",
+      "phone_number": "+79996666666",
+      "date_joined": "2023-12-05T08:19:48.830Z",
       "is_staff": false,
       "is_active": true,
       "groups": [],
@@ -126,6 +190,74 @@
       "is_active": true,
       "groups": [],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "order.order",
+    "pk": 1,
+    "fields": {
+      "status": "WAITING_FOR_PAYMENT",
+      "user": 1,
+      "order_number": "20231205115546162",
+      "order_comment": "ooOOoOoOOoOo WoWwww this is comment!!!!!!!!!!!!",
+      "order_time": "2023-12-05T08:55:46.131Z",
+      "signer_firstname": "Serezha",
+      "signer_lastname": "Rab",
+      "signer_address": "ulicha rabov"
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "product": 1,
+      "amount": 2275
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 2,
+    "fields": {
+      "order": 1,
+      "product": 2,
+      "amount": 112
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 3,
+    "fields": {
+      "order": 1,
+      "product": 3,
+      "amount": 1132
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 4,
+    "fields": {
+      "order": 1,
+      "product": 4,
+      "amount": 1132
+    }
+  },
+  {
+    "model": "cart.cart",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "product": 4,
+      "amount": 6792
+    }
+  },
+  {
+    "model": "cart.cart",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "product": 1,
+      "amount": 1231111
     }
   }
 ]
