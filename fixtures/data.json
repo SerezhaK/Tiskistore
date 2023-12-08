@@ -150,7 +150,7 @@
     "fields": {
       "password": "pbkdf2_sha256$600000$ciSNX5E6y5XbUjU1vcq4uT$nQE4Jsi3Ddpp+e3Es77OMSsHHQ343/TmkRfJOp1u1wM=",
       "last_login": null,
-      "is_superuser": false,
+      "is_superuser": true,
       "username": "+79999999999",
       "phone_number": "+79999999999",
       "date_joined": "2023-12-05T08:17:56.421Z",

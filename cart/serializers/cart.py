@@ -15,6 +15,7 @@ class CartSerializer(serializers.ModelSerializer):
             'product',
             'amount',
             'total_price',
+            'user_total_price'
         )
 
 

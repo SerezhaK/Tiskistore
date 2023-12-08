@@ -25,7 +25,10 @@ class Cart(models.Model):
         unique_together = ('user', 'product')
 
     def __str__(self):
-        return f'Корзина покупок {self.user.email}'
+        return f'Корзина покупок {self.user.phone_number}'
 
     def total_price(self) -> float:
         return self.amount * self.product.price
+
+    def user_total_price(self) -> float:
+        return sum([cart.total_price() for cart in Cart.objects.filter(user=self.user)])
