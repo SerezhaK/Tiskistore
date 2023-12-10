@@ -1,5 +1,3 @@
-
-
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from phonenumber_field.phonenumber import PhoneNumber
@@ -30,6 +28,16 @@ class PhoneNumberMixin:
         url_name='confirm_active_user',
     )
     def confirm_active_user(self, request):
+        if "phone_number" not in request.data:
+            return Response(
+                'Код не верный #p',
+                status=status.HTTP_200_OK,
+            )
+        if "redis_key" not in request.data:
+            return Response(
+                'Код не верный #r',
+                status=status.HTTP_200_OK,
+            )
         user_phone_number_no_valid = request.data["phone_number"]
         user_phone_number_valid = PhoneNumber.from_string(
             phone_number=user_phone_number_no_valid,
@@ -44,8 +52,8 @@ class PhoneNumberMixin:
                 status=status.HTTP_200_OK,
             )
         return Response(
-            'Код не верный, попробуйте еще раз',
-            status=status.HTTP_400_BAD_REQUEST,
+            f'Код неверный, попробуйте еще раз {get_redis_key_from_cache(user)}',
+            status=status.HTTP_200_OK,
         )
 
     @action(
@@ -64,12 +72,12 @@ class PhoneNumberMixin:
             user.set_password(new_password)
             user.save()
             return Response(
-                'Password changed',
+                'Пароль изменен',
                 status=status.HTTP_200_OK
             )
         return Response(
             'Код не верный, попробуйте еще раз',
-            status=status.HTTP_400_BAD_REQUEST,
+            status=status.HTTP_200_OK,
         )
 
     @action(
