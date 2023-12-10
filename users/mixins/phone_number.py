@@ -10,6 +10,8 @@ from ..services.phone_number import (get_new_password_from_cache,
                                      get_redis_key_from_cache,
                                      send_phone_number_verification)
 
+from django.conf import settings
+
 
 class PhoneNumberMixin:
     def get_user_for_confirm(
@@ -38,12 +40,21 @@ class PhoneNumberMixin:
                 'Код не верный #r',
                 status=status.HTTP_200_OK,
             )
+
         user_phone_number_no_valid = request.data["phone_number"]
         user_phone_number_valid = PhoneNumber.from_string(
             phone_number=user_phone_number_no_valid,
             region='RU'
         ).as_e164
-        user = User.objects.get(phone_number=user_phone_number_valid)
+        user = get_object_or_404(User, phone_number=user_phone_number_valid)
+
+        if not settings.PHONE_NUMBER_CONFIRM:
+            user.is_active = True
+            user.save()
+            return Response(
+                'Успешно!',
+                status=status.HTTP_200_OK,
+            )
         if get_redis_key_from_cache(user) == request.data["redis_key"]:
             user.is_active = True
             user.save()
