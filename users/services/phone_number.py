@@ -32,6 +32,8 @@ def send_phone_number_verification(
         viewset_instance,
         new_password=None
 ):
+    if not settings.PHONE_NUMBER_CONFIRM:
+        return "Успешно!"
     redis_key = str(random.randint(100000, 9999999))
     cache.set(
         user.user_id,

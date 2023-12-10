@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth.password_validation import validate_password
 from django.shortcuts import get_object_or_404
 from phonenumber_field.phonenumber import PhoneNumber
 from rest_framework import status
@@ -115,8 +116,20 @@ class PhoneNumberMixin:
         url_name='change_password',
     )
     def change_password(self, request):
+        if "new_password" not in request.data:
+            return Response(
+                'Код не верный #np',
+                status=status.HTTP_200_OK,
+            )
         user: User = request.user
         new_password = request.data['new_password']
+        try:
+            validate_password(new_password)
+        except BaseException:
+            return Response(
+                "Ненадежный пароль, попробуйте еще раз",
+                status=status.HTTP_200_OK
+            )
 
         if not settings.PHONE_NUMBER_CONFIRM:
             user.set_password(new_password)
