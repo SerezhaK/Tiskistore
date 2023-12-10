@@ -10,8 +10,6 @@ from ..services.phone_number import (get_new_password_from_cache,
                                      get_redis_key_from_cache,
                                      send_phone_number_verification)
 
-from django.conf import settings
-
 
 class PhoneNumberMixin:
     def get_user_for_confirm(
@@ -65,7 +63,8 @@ class PhoneNumberMixin:
             )
 
         return Response(
-            f'Код неверный, попробуйте еще раз {get_redis_key_from_cache(user)}',
+            f'Код неверный,'
+            f' попробуйте еще раз {get_redis_key_from_cache(user)}',
             status=status.HTTP_200_OK,
         )
 
@@ -157,7 +156,7 @@ class PhoneNumberMixin:
                 phone_number=user_phone_number_no_valid,
                 region='RU'
             ).as_e164
-        except:
+        except BaseException:
             return Response(
                 'Код не верный #p',
                 status=status.HTTP_200_OK,

@@ -31,4 +31,7 @@ class Cart(models.Model):
         return self.amount * self.product.price
 
     def user_total_price(self) -> float:
-        return sum([cart.total_price() for cart in Cart.objects.filter(user=self.user)])
+        return sum(
+            [cart.total_price()
+             for cart in Cart.objects.filter(user=self.user)]
+        )
