@@ -10,7 +10,7 @@ class CartTestCase(APITestCase):
     fixtures = ['fixtures/carts.json']
 
     def setUp(self):
-        self.user_owner = User.objects.get(user_id=2)
+        self.user_owner = User.objects.get(user_id=1)
         self.client_owner = APIClient()
         self.client_owner.force_authenticate(user=self.user_owner)
 

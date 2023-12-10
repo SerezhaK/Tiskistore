@@ -55,6 +55,7 @@ class PhoneNumberMixin:
                 'Успешно!',
                 status=status.HTTP_200_OK,
             )
+
         if get_redis_key_from_cache(user) == request.data["redis_key"]:
             user.is_active = True
             user.save()
@@ -62,6 +63,7 @@ class PhoneNumberMixin:
                 'Успешно!',
                 status=status.HTTP_200_OK,
             )
+
         return Response(
             f'Код неверный, попробуйте еще раз {get_redis_key_from_cache(user)}',
             status=status.HTTP_200_OK,
@@ -74,6 +76,22 @@ class PhoneNumberMixin:
         url_name='confirm_change_password',
     )
     def confirm_change_password(self, request):
+        if "new_password" not in request.data:
+            return Response(
+                'Код не верный #np',
+                status=status.HTTP_200_OK,
+            )
+        if not request.user.is_authenticated:
+            return Response(
+                'Код не верный #u',
+                status=status.HTTP_200_OK,
+            )
+        if "redis_key" not in request.data:
+            return Response(
+                'Код не верный #r',
+                status=status.HTTP_200_OK,
+            )
+
         user: User = request.user
         control_key = request.data["redis_key"]
         if get_redis_key_from_cache(user) == control_key:
@@ -122,14 +140,42 @@ class PhoneNumberMixin:
         url_name='resent_confirm_active_user',
     )
     def resent_confirm_active_user(self, request):
+        if "phone_number" not in request.data:
+            return Response(
+                'Код не верный #p',
+                status=status.HTTP_200_OK,
+            )
+        if "redis_key" not in request.data:
+            return Response(
+                'Код не верный #r',
+                status=status.HTTP_200_OK,
+            )
+
         user_phone_number_no_valid = request.data["phone_number"]
-        user_phone_number_valid = PhoneNumber.from_string(
-            phone_number=user_phone_number_no_valid,
-            region='RU'
-        ).as_e164
-        user = User.objects.get(phone_number=user_phone_number_valid)
-        send_phone_number_verification(user=user,
-                                       viewset_instance=self)
+        try:
+            user_phone_number_valid = PhoneNumber.from_string(
+                phone_number=user_phone_number_no_valid,
+                region='RU'
+            ).as_e164
+        except:
+            return Response(
+                'Код не верный #p',
+                status=status.HTTP_200_OK,
+            )
+
+        user = get_object_or_404(User, phone_number=user_phone_number_valid)
+
+        if not settings.PHONE_NUMBER_CONFIRM:
+            return Response(
+                f"Отправлен код на номер телефона: {user_phone_number_valid} ",
+                status=status.HTTP_200_OK,
+            )
+
+        send_phone_number_verification(
+            user=user,
+            viewset_instance=self
+        )
+
         return Response(
             f"Отправлен код на номер телефона: {user_phone_number_valid} ",
             status=status.HTTP_200_OK,
