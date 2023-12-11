@@ -4,6 +4,7 @@ from rest_framework.test import APIClient, APITestCase
 
 from products.models.product import Product
 from users.models.user import User
+from cart.models.cart import Cart
 
 
 class CartTestCase(APITestCase):
@@ -15,6 +16,7 @@ class CartTestCase(APITestCase):
         self.client_owner.force_authenticate(user=self.user_owner)
 
         self.product = Product.objects.get(pk=1)
+        self.cart = Cart.objects.get(pk=5)
 
     def test_cart_get(self):
         url = reverse('cart-list')
@@ -32,7 +34,7 @@ class CartTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_cart_product_id_get(self):
-        url = reverse("cart-detail", args=[self.product.pk])
+        url = reverse("cart-detail", args=[self.cart.pk])
         response = self.client_owner.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
