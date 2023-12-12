@@ -4,8 +4,6 @@ from cart.models.cart import Cart
 from products.models.product import Product
 from products.serializers.products import ProductsSerializer
 from users.serializers.users import UserListSerializer
-from rest_framework.response import Response
-from rest_framework import status
 
 
 class CartSerializer(serializers.ModelSerializer):

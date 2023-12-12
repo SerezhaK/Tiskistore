@@ -2,9 +2,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
+from cart.models.cart import Cart
 from products.models.product import Product
 from users.models.user import User
-from cart.models.cart import Cart
 
 
 class CartTestCase(APITestCase):
