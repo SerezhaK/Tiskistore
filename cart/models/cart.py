@@ -20,9 +20,10 @@ class Cart(models.Model):
     )
 
     class Meta:
+        ordering = ["-product"]
         verbose_name = 'Корзина'
         verbose_name_plural = verbose_name
-        unique_together = ('user', 'product')
+        unique_together = ['user', 'product']
 
     def __str__(self):
         return f'Корзина покупок {self.user.phone_number}'
