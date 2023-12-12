@@ -54,7 +54,6 @@ class CartDetailSerializer(serializers.Serializer):
                 existed.delete()
                 return existed
             existed.save()
-        elif not int(validated_data['amount']) <= 0:
+        else:
             existed = Cart.objects.create(**validated_data)
-            return existed
         return existed

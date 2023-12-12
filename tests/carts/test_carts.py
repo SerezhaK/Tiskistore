@@ -34,7 +34,7 @@ class CartTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_cart_product_id_get(self):
-        url = reverse("cart-detail", args=[self.cart.pk])
+        url = reverse("cart-detail", args=[self.product.pk])
         response = self.client_owner.get(url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
