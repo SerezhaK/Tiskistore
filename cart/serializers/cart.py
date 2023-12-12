@@ -40,13 +40,6 @@ class CartDetailSerializer(serializers.Serializer):
             'amount',
         )
 
-    # def validation_amount(self, amount, user, products):
-    #     if Cart.objects.filter(user=user, product=products):
-    #         return amount
-    #     if amount > 0:
-    #         return amount
-    #     return serializers.ValidationError('This field must be an even number.')
-
     def create(self, validated_data):
         user = self.context['request'].user
         product = validated_data['product']
@@ -54,7 +47,6 @@ class CartDetailSerializer(serializers.Serializer):
         validated_data['user_id'] = user.user_id
 
         existed = Cart.objects.filter(user=user, product=product)
-        # self.validation_amount( amount, user, product)
         if existed:
             existed = existed[0]
             existed.amount += amount
@@ -66,11 +58,3 @@ class CartDetailSerializer(serializers.Serializer):
             existed = Cart.objects.create(**validated_data)
             return existed
         return existed
-
-    def update(self, instance, validated_data):
-        """ Изменение количества товара в корзине
-        """
-
-        instance.amount = validated_data['amount']
-        instance.save()
-        return instance

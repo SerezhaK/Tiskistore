@@ -29,3 +29,8 @@ class Item(models.Model):
 
     def total_price(self) -> float:
         return self.amount * self.product.price
+    def user_total_price(self) -> float:
+        return sum(
+            [items.total_price()
+             for item in Item.objects.filter(order=self.order)]
+        )
