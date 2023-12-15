@@ -38,6 +38,10 @@ class CartDetailSerializer(serializers.Serializer):
             'amount',
         )
 
+    # def validation(self):
+    #     amount = self.contex['request'].amount
+    #     if amount <= 0:
+    #         raise ValidationEr
     def create(self, validated_data):
         user = self.context['request'].user
         product = validated_data['product']
@@ -53,5 +57,9 @@ class CartDetailSerializer(serializers.Serializer):
                 return existed
             existed.save()
         else:
+            if amount <= 0:
+                validated_data['amount'] = 1
+                existed = Cart.objects.create(**validated_data)
+                existed.delete()
             existed = Cart.objects.create(**validated_data)
         return existed

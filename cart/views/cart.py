@@ -21,12 +21,7 @@ class CartViewSet(mixins.RetrieveModelMixin,
         else:
             return CartDetailSerializer
 
-    def perform_create(self, serializer):
-        product = self.request.query_params.get('product')
-        queryset = Cart.objects.filter(user=self.request.user, product=product)
-        if not queryset.exists():
-            return Response(
-                "Нельзя добавить отрицательное колличество товара",
-                status.HTTP_204_NO_CONTENT
-            )
-        serializer.save(user=self.request.user)
+    # def perform_create(self, serializer):
+    #     product = self.request.query_params.get('product')
+    #     queryset = Cart.objects.filter(user=self.request.user, product=product)
+    #     serializer.save(user=self.request.user)
