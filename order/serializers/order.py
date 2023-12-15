@@ -51,3 +51,22 @@ class OrderSerializer(serializers.ModelSerializer):
                 and not self.context["request"].user.is_staff):
             raise serializers.ValidationError("Only admin can update status")
         return super().update(instance, validated_data)
+
+
+class OrderListSerializer(serializers.ModelSerializer):
+    """ Сериализация информации о заказах в списке
+    """
+
+    order_number = serializers.CharField(read_only=True)
+    order_status = serializers.CharField(read_only=True)
+    order_time = serializers.CharField(read_only=True)
+
+    class Meta:
+        model = Order
+        fields = (
+            'id',
+            'order_number',
+            'order_time',
+            'status',
+            'to_pay',
+        )

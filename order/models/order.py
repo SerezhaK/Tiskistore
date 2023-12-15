@@ -57,4 +57,4 @@ class Order(models.Model):
         return f'Заказ {self.order_number}'
 
     def to_pay(self):
-        return sum(item.total_price() for item in self.order_items.all())
+        return sum(item.total_price() for item in self.items.all())

@@ -24,7 +24,13 @@ class CartTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_add_to_cart(self):
+    def test_cart_product_id_get(self):
+        url = reverse("cart-detail", args=[self.product.pk])
+        response = self.client_owner.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_add_pozitive_integer_to_cart(self):
         url = reverse('cart-list')
         post_data = {
             "product": self.product,
@@ -33,54 +39,11 @@ class CartTestCase(APITestCase):
         response = self.client_owner.post(url, post_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def test_cart_product_id_get(self):
-        url = reverse("cart-detail", args=[self.product.pk])
-        response = self.client_owner.get(url)
-
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-
-    # def test_cart_put(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     self.client_owner.post(post_url, post_data)
-    #
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     put_data = {
-    #         "product": self.product,
-    #         "amount": 111123456
-    #     }
-    #     response = self.client_owner.put(url, put_data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_patch(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     self.client_owner.post(post_url, post_data)
-    #
-    #     url = reverse("cart-detail", args=[self.product.pk])
-    #     patch_data = {
-    #         "product": self.product,
-    #         "amount": 111123456
-    #     }
-    #     response = self.client_owner.put(url, patch_data)
-    #     self.assertEqual(response.status_code, status.HTTP_200_OK)
-    #
-    # def test_cart_delete(self):
-    #     post_url = reverse('cart-list')
-    #     post_data = {
-    #         "product": self.product,
-    #         "amount": 11
-    #     }
-    #     self.client_owner.post(post_url, post_data)
-    #
-    #     url = reverse("cart-detail", args=[self.product])
-    #     response = self.client_owner.delete(url)
-    #
-    #     self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-    #
+    def test_add_negative_integer_to_cart(self):
+        url = reverse('cart-list')
+        post_data = {
+            "product": self.product,
+            "amount": -1
+        }
+        response = self.client_owner.post(url, post_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
