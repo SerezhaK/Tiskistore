@@ -4,10 +4,10 @@ from users.models.user import User
 
 
 class OrderStatusChoices(models.TextChoices):
-    WAITING_FOR_PAYMENT = "WAITING_FOR_PAYMENT", "Ожидает оплаты"
-    CREATED_PAY = 'CREATED_PAY', 'Создание транзакции'
-    DONE = "DONE", "Закрыт"
-    TIMEOUT = 'TIMEOUT', 'Закрытие по таймауту'
+    WAITING_FOR_PAYMENT = "Ожидает оплаты"
+    CREATED_PAY = 'Создание транзакции'
+    DONE = "Закрыт"
+    TIMEOUT = 'Время оплаты вышло'
 
 
 class Order(models.Model):

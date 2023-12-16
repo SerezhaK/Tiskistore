@@ -1,3 +1,7 @@
+from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
+from rest_framework.request import Request
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from cart.models.cart import Cart
@@ -25,3 +29,18 @@ class OrderViewSet(ModelViewSet):
             )
             cart.delete()
         return order
+
+    @action(
+        methods=['GET'],
+        url_path='order_status',
+        detail=False,
+        permission_classes=[AllowAny],
+    )
+    def profile(self, request: Request):
+        return Response({'order_status': (
+            "Ожидает оплаты",
+            "Создание транзакции",
+            "Закрыт",
+            "Время оплаты вышло"
+        )},
+            status=200)

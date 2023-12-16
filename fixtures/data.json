@@ -1,13 +1,5 @@
 [
   {
-    "model": "authtoken.token",
-    "pk": "fb27473f3aa4009fa4b9a245d13dc505cf86fe24",
-    "fields": {
-      "user": 1,
-      "created": "2023-12-05T08:28:24.623Z"
-    }
-  },
-  {
     "model": "products.category",
     "pk": 1,
     "fields": {
@@ -149,7 +141,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$600000$ciSNX5E6y5XbUjU1vcq4uT$nQE4Jsi3Ddpp+e3Es77OMSsHHQ343/TmkRfJOp1u1wM=",
-      "last_login": null,
+      "last_login": "2023-12-16T16:47:18.911Z",
       "is_superuser": true,
       "username": "+79999999999",
       "phone_number": "+79999999999",
@@ -196,7 +188,7 @@
     "model": "order.order",
     "pk": 1,
     "fields": {
-      "status": "WAITING_FOR_PAYMENT",
+      "status": "Ожидает оплаты",
       "user": 1,
       "order_number": "20231205115546162",
       "order_comment": "ooOOoOoOOoOo WoWwww this is comment!!!!!!!!!!!!",
@@ -204,6 +196,34 @@
       "signer_firstname": "Serezha",
       "signer_lastname": "Rab",
       "signer_address": "ulicha rabov"
+    }
+  },
+  {
+    "model": "order.order",
+    "pk": 2,
+    "fields": {
+      "status": "Ожидает оплаты",
+      "user": 1,
+      "order_number": "20231215095933172",
+      "order_comment": "string",
+      "order_time": "2023-12-15T06:59:33.733Z",
+      "signer_firstname": "string",
+      "signer_lastname": "string",
+      "signer_address": "string"
+    }
+  },
+  {
+    "model": "order.order",
+    "pk": 3,
+    "fields": {
+      "status": "Ожидает оплаты",
+      "user": 1,
+      "order_number": "20231216195149173",
+      "order_comment": "NIGGERS LOL",
+      "order_time": "2023-12-16T16:51:49.344Z",
+      "signer_firstname": "VAdim",
+      "signer_lastname": "good",
+      "signer_address": "luckovuch"
     }
   },
   {
@@ -243,21 +263,93 @@
     }
   },
   {
-    "model": "cart.cart",
+    "model": "order.item",
     "pk": 5,
     "fields": {
-      "user": 1,
+      "order": 2,
+      "product": 1,
+      "amount": 12
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 6,
+    "fields": {
+      "order": 2,
       "product": 4,
       "amount": 67
     }
   },
   {
+    "model": "order.item",
+    "pk": 7,
+    "fields": {
+      "order": 3,
+      "product": 1,
+      "amount": 23
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 8,
+    "fields": {
+      "order": 3,
+      "product": 2,
+      "amount": 205888910
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 9,
+    "fields": {
+      "order": 3,
+      "product": 4,
+      "amount": 67
+    }
+  },
+  {
+    "model": "order.item",
+    "pk": 10,
+    "fields": {
+      "order": 3,
+      "product": 5,
+      "amount": 2
+    }
+  },
+  {
     "model": "cart.cart",
-    "pk": 6,
+    "pk": 18,
+    "fields": {
+      "user": 1,
+      "product": 5,
+      "amount": 2
+    }
+  },
+  {
+    "model": "cart.cart",
+    "pk": 19,
     "fields": {
       "user": 1,
       "product": 1,
-      "amount": 12
+      "amount": 23
+    }
+  },
+  {
+    "model": "cart.cart",
+    "pk": 20,
+    "fields": {
+      "user": 1,
+      "product": 3,
+      "amount": 2
+    }
+  },
+  {
+    "model": "cart.cart",
+    "pk": 21,
+    "fields": {
+      "user": 1,
+      "product": 4,
+      "amount": 123
     }
   }
 ]
