@@ -4,8 +4,6 @@ from django.contrib.auth.models import UserManager as _UserManager
 from django.db.transaction import atomic
 from phonenumber_field.phonenumber import PhoneNumber
 
-# from cart.models.cart import Cart
-
 
 class UserManager(_UserManager):
 

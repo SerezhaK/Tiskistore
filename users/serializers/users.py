@@ -1,6 +1,5 @@
-from random import randint
-
 from django.contrib.auth.password_validation import validate_password
+from random import randint
 from rest_framework import serializers
 
 from ..models.user import User
@@ -47,7 +46,7 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['user_id', 'username', 'date_joined', ]
+        fields = ['user_id', 'username', 'date_joined', 'is_staff','phone_number','is_active']
 
     def get_date_joined(self, obj: User) -> str:
         return obj.get_date()

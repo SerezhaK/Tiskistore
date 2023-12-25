@@ -20,3 +20,15 @@ class UserOwnerOrReadOnly(permissions.BasePermission):
         if not request.user.is_authenticated:
             return False
         return obj.user_id == request.user.user_id or request.user.is_staff
+
+
+class IsStuff(permissions.BasePermission):
+    def has_permission(self, request: HttpRequest, view, obj=None):
+        if not request.user.is_authenticated:
+            return False
+        return request.user.is_staff
+
+    def has_object_permission(self, request: HttpRequest, view, obj: User):
+        if not request.user.is_authenticated:
+            return False
+        return request.user.is_staff

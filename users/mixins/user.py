@@ -5,6 +5,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from ..models.user import User
+from ..permissions import IsStuff
 
 
 class UserMixin:
@@ -33,3 +34,17 @@ class UserMixin:
         user: User = request.user
         user.delete()
         return Response({'detail': 'Success'}, status=204)
+
+    @action(
+        methods=['POST'],
+        url_path='admin_create',
+        detail=False,
+        permission_classes=[IsStuff],
+    )
+    def create_superuser(self, request: Request):
+        serializer = self.get_serializer(
+            instance=request.user, data=request.data)
+
+        serializer.update(request.user, validated_data=request.data)
+        serializer.save(is_active=False)
+        return Response(serializer.data)
