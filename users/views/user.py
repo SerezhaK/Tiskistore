@@ -1,13 +1,13 @@
 from django.conf import settings
 from rest_framework import mixins, viewsets
 
-from users.serializers.users import (UserCreateCustomSerializer,
-                                     UserListSerializer, UserUpdateSerializer)
 from ..mixins.phone_number import PhoneNumberMixin
 from ..mixins.user import UserMixin
 from ..models.user import User
 from ..permissions import UserOwnerOrReadOnly
 from ..services.phone_number import send_phone_number_verification
+from users.serializers.users import (UserCreateCustomSerializer,
+                                     UserListSerializer, UserUpdateSerializer)
 
 
 class UserViewSet(mixins.RetrieveModelMixin,
