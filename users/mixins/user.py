@@ -3,6 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from ..serializers.users import UserCreateCustomSerializer
 
 from ..models.user import User
 from ..permissions import IsStuff
@@ -41,10 +42,14 @@ class UserMixin:
         detail=False,
         permission_classes=[IsStuff],
     )
-    def create_superuser(self, request: Request):
-        serializer = self.get_serializer(
-            instance=request.user, data=request.data)
+    def admin_create(self, request):
+        serializer = UserCreateCustomSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.create(
+                request.data,
+                is_admin=True
+            )
+            return Response("nice!", status=200)
+        else:
+            return Response(serializer.errors)
 
-        serializer.update(request.user, validated_data=request.data)
-        serializer.save(is_active=False)
-        return Response(serializer.data)

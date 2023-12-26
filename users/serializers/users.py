@@ -24,15 +24,20 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
         validate_password(password)
         return password
 
-    def create(self, validated_data: dict):
+    def create(self, validated_data: dict, is_admin=False):
         if 'username' not in validated_data:
             validated_data['username'] = f'username{randint(1000000, 9999999)}'
 
         password = validated_data.pop('password')
 
-        user = User.objects.create(
-            **validated_data
-        )
+        if is_admin:
+            user = User.objects.create_superuser(
+                **validated_data
+            )
+        else:
+            user = User.objects.create(
+                **validated_data
+            )
 
         try:
             user.set_password(password)

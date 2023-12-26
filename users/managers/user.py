@@ -10,10 +10,6 @@ class UserManager(_UserManager):
     def _create_user(
             self, phone_number, username=None, password=None, **extra_fields
     ):
-
-        if not password:
-            raise ValueError("Пароль должен быть указан")
-
         if phone_number:
             phone_number = PhoneNumber.from_string(
                 phone_number=phone_number,

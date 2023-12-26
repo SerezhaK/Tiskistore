@@ -152,8 +152,6 @@ USE_L10N = True
 
 TIME_ZONE = "UTC"
 
-USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = '/static/'
@@ -170,7 +168,6 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', ]
 
 AUTH_USER_MODEL = 'users.User'
 
-# ADMIN_MEDIA_PREFIX = '/admin/media/'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
