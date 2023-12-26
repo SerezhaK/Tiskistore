@@ -8,8 +8,9 @@ from cart.models.cart import Cart
 from order.models.item import Item
 from order.models.order import Order
 from order.permissions import UserOwner
-from order.serializers.order import OrderSerializer
+from order.serializers.order import OrderSerializer, OrderListSerializer
 from users.models.user import User
+from users.permissions import IsStuff
 
 
 class OrderViewSet(ModelViewSet):
@@ -36,7 +37,7 @@ class OrderViewSet(ModelViewSet):
         detail=False,
         permission_classes=[AllowAny],
     )
-    def profile(self, request: Request):
+    def get_order_status_choise(self, request: Request):
         return Response({'order_status': (
             "Ожидает оплаты",
             "Создание транзакции",
@@ -44,3 +45,15 @@ class OrderViewSet(ModelViewSet):
             "Время оплаты вышло"
         )},
             status=200)
+
+    @action(
+        methods=['GET'],
+        url_path='all_orders',
+        detail=False,
+        permission_classes=[IsStuff],
+    )
+    def get_all_users_order(self, request: Request):
+        self.serializer = OrderListSerializer()
+        orders = Order.objects.all()
+        serializer = self.get_serializer(orders, many=True)
+        return Response(serializer.data, status=200)
