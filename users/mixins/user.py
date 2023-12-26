@@ -1,12 +1,13 @@
 from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
-from ..serializers.users import UserCreateCustomSerializer
 
 from ..models.user import User
 from ..permissions import IsStuff
+from ..serializers.users import UserCreateCustomSerializer
 
 
 class UserMixin:
@@ -18,7 +19,7 @@ class UserMixin:
         permission_classes=[IsAuthenticated],
     )
     def profile(self, request: Request):
-        return Response(self.get_serializer(request.user).data)
+        return Response(self.get_serializer(request.user).data, status=status.HTTP_200_OK)
 
     @extend_schema(tags=['profile'])
     @profile.mapping.patch
@@ -30,11 +31,12 @@ class UserMixin:
         return Response(serializer.data)
 
     @extend_schema(tags=['profile'])
+    @extend_schema(tags=['profile'])
     @profile.mapping.delete
     def profile_delete(self, request: Request):
         user: User = request.user
         user.delete()
-        return Response({'detail': 'Success'}, status=204)
+        return Response({'detail': 'Success'}, status=status.HTTP_204_NO_CONTENT)
 
     @action(
         methods=['POST'],
@@ -49,7 +51,6 @@ class UserMixin:
                 request.data,
                 is_admin=True
             )
-            return Response("nice!", status=200)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors)
-
+            return Response(serializer.errors, status=status.HTTP_204_NO_CONTENT)

@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
@@ -44,7 +45,7 @@ class OrderViewSet(ModelViewSet):
             "Закрыт",
             "Время оплаты вышло"
         )},
-            status=200)
+            status=status.HTTP_200_OK)
 
     @action(
         methods=['GET'],
@@ -56,4 +57,4 @@ class OrderViewSet(ModelViewSet):
         self.serializer = OrderListSerializer()
         orders = Order.objects.all()
         serializer = self.get_serializer(orders, many=True)
-        return Response(serializer.data, status=200)
+        return Response(serializer.data, status=status.HTTP_200_OK)
