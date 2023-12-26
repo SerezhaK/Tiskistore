@@ -9,7 +9,7 @@ from cart.models.cart import Cart
 from order.models.item import Item
 from order.models.order import Order
 from order.permissions import UserOwner
-from order.serializers.order import OrderSerializer, OrderListSerializer
+from order.serializers.order import OrderListSerializer, OrderSerializer
 from users.models.user import User
 from users.permissions import IsStuff
 

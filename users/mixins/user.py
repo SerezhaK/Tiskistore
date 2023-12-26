@@ -19,7 +19,10 @@ class UserMixin:
         permission_classes=[IsAuthenticated],
     )
     def profile(self, request: Request):
-        return Response(self.get_serializer(request.user).data, status=status.HTTP_200_OK)
+        return Response(
+            self.get_serializer(request.user).data,
+            status=status.HTTP_200_OK
+        )
 
     @extend_schema(tags=['profile'])
     @profile.mapping.patch
@@ -28,7 +31,7 @@ class UserMixin:
             instance=request.user, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.update(request.user, validated_data=request.data)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(tags=['profile'])
     @extend_schema(tags=['profile'])
@@ -36,7 +39,10 @@ class UserMixin:
     def profile_delete(self, request: Request):
         user: User = request.user
         user.delete()
-        return Response({'detail': 'Success'}, status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {'detail': 'Success'},
+            status=status.HTTP_204_NO_CONTENT
+        )
 
     @action(
         methods=['POST'],
@@ -53,4 +59,7 @@ class UserMixin:
             )
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
-            return Response(serializer.errors, status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                serializer.errors,
+                status=status.HTTP_204_NO_CONTENT
+            )
