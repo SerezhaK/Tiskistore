@@ -16,7 +16,7 @@ services:
 
   back:
     container_name: back
-    build: ../.
+    build: ./backend
     restart: always
     env_file:
       - ../.env
@@ -26,14 +26,13 @@ services:
     depends_on:
       - db
       - redis
-    command: |
-      bash -c "python3 manage.py makemigrations;
-        python3 manage.py migrate;
-        python -Xutf8 manage.py loaddata data.json;
-        gunicorn Tiskistore.wsgi:application --bind 0:8000"
-
     environment:
       - DOCKER=True
+
+  front:
+    container_name: front
+    build: ../frontend
+    restart: always
 
   nginx:
     container_name: nginx
@@ -47,6 +46,7 @@ services:
       - media_dir:/etc/nginx/html/media/
     depends_on:
       - back
+      - front
 
 volumes:
   static_dir:

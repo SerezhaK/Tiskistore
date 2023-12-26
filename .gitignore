@@ -150,4 +150,6 @@ dmypy.json
 .mypy_cache
 
 # PyCharm files
-.idea
+.idea!/front/
+/front/
+
