@@ -49,4 +49,5 @@ def send_phone_number_verification(
         user_phone_number,
         message
     )
-    return message
+    return ("Код подтверждения отправлен на номер телефона:"
+            f" {user_phone_number}")
