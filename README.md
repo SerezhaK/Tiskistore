@@ -1,7 +1,8 @@
 ﻿# Store website with implementation of SMS registration via gateway sms.ru
 
 
-#### Before use, make sure that you have **submodule frontend** installed
+### Before you install
+Ьake sure that you have **submodule frontend** installed.  
 You should clone the project using
 
     git clone -recurse-submodules …
@@ -16,7 +17,7 @@ ___
 
 The .env file must be in the root directory
 
-API_ID and LOGIN PASSWORD pair are mutually exclusive and need for gateway work 
+API_ID and LOGIN PASSWORD pair are mutually exclusive and need for gateway work.   
 More detailed information can be found on the website sms.ru.
 
     DB_NAME=
