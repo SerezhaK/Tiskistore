@@ -10,12 +10,9 @@ or if you have already cloned the project, then use:
 
     git submodule update --init
 
-### Start project
-Navigate to /infra/ 
+___
 
-    docker-compose up --build
-
-### .env file
+### .env file setup
 
 The .env file must be in the root directory
 
@@ -36,3 +33,10 @@ More detailed information can be found on the website sms.ru.
     
     DEBUG=
     PHONE_NUMBER_CONFIRM=
+
+___
+
+### Start project
+Navigate to /infra/ 
+
+    docker-compose up --build
