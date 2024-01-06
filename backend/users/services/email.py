@@ -29,7 +29,7 @@ def send_email_verification(user: User, viewset_instance):
         {'user_id': user.pk},
         timeout=settings.TISKISTORE_USER_CONFIRM_TIMEOUT
     )
-    # reverse_action возвращает http://back, пока им не пользуемся
+    # reverse_action возвращает http://backend, пока им не пользуемся
     confirm_link_url = viewset_instance.reverse_action(  # noqa
         url_name='confirm',
         request=viewset_instance.request,
@@ -55,7 +55,7 @@ def send_email_reset_password(user: User, viewset_instance):
         {'user_id': user.pk},
         timeout=settings.TISKISTORE_USER_CONFIRM_TIMEOUT
     )
-    # reverse_action возвращает http://back, пока им не пользуемся
+    # reverse_action возвращает http://backend, пока им не пользуемся
     confirm_link_url = viewset_instance.reverse_action(  # noqa
         url_name='confirm',
         request=viewset_instance.request,

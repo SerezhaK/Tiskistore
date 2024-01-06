@@ -1,7 +1,15 @@
 #!/bin/sh
 
 python manage.py makemigrations
-python manage.py migrate --no-input
+
+until python manage.py migrate --noinput
+do
+    echo "Waiting for db to be ready..."
+    sleep 2
+done
+
+python manage.py loaddata data.json
+
 python manage.py collectstatic --no-input
 
-gunicorn Tiskistore.wsgi.pywsgi:application --bind 0.0.0.0:8000
+gunicorn Tiskistore.wsgi:application --bind 0.0.0.0:8000

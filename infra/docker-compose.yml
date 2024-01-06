@@ -14,10 +14,12 @@ services:
     image: redis:7.0.11-alpine
     restart: always
 
-  back:
-    container_name: back
+  backend:
+    container_name: backend
     build: ../backend
     restart: always
+    expose:
+      - "8000"
     env_file:
       - ../.env
     volumes:
@@ -29,10 +31,12 @@ services:
     environment:
       - DOCKER=True
 
-  front:
-    container_name: front
+  frontend:
+    container_name: frontend
     build: ../frontend
     restart: always
+    expose:
+      - "3000"
 
   nginx:
     container_name: nginx
@@ -44,8 +48,8 @@ services:
       - static_dir:/etc/nginx/html/static/
       - media_dir:/etc/nginx/html/media/
     depends_on:
-      - back
-      - front
+      - backend
+      - frontend
 
 volumes:
   static_dir:
