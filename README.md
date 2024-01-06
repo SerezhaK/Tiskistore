@@ -2,7 +2,7 @@
 
 
 ### Before you install
-Ьake sure that you have **submodule frontend** installed.  
+Be sure you install the **submodule frontend**.  
 You should clone the project using
 
     git clone -recurse-submodules …
