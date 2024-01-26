@@ -38,6 +38,13 @@ services:
     expose:
       - "3000"
 
+  admin_product:
+    container_name: admin_product
+    build: ../admin
+    restart: always
+    expose:
+      - "3050"
+
   nginx:
     container_name: nginx
     build: ../nginx

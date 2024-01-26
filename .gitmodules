@@ -1,3 +1,6 @@
 [submodule "strybasa_tiski"]
 	path = frontend
 	url = https://github.com/Vadimcha/strybasa_tiski.git
+[submodule "admin"]
+	path = admin
+	url = https://github.com/Vadimcha/srtybasa_tiski-adminpanel.git
