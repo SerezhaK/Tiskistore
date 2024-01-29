@@ -93,6 +93,9 @@ dc_clear:
 	@echo "Removing all docker-compose data..."
 	docker system prune
 	docker volume prune
+	docker system prune -a --volumes
+	docker volume prune --all
+
 
 
 # Pull changes
