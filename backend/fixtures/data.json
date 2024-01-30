@@ -3,7 +3,7 @@
     "model": "products.category",
     "pk": 1,
     "fields": {
-      "name": "qwe",
+      "name": "Стройматериалы",
       "slug": "qwe  qwe"
     }
   },
@@ -11,15 +11,22 @@
     "model": "products.category",
     "pk": 2,
     "fields": {
-      "name": "string",
+      "name": "Гвозди",
       "slug": "KJ39vCGr4H06UgLkjTCni6BsfQyRcu6HDq"
+    }
+  },  {
+    "model": "products.category",
+    "pk": 5,
+    "fields": {
+      "name": "Гвозди",
+      "slug": "fqqweqweqew"
     }
   },
   {
     "model": "products.tag",
     "pk": 1,
     "fields": {
-      "name": "tqrdea",
+      "name": "Скидка",
       "slug": "qwe-IMGhMY"
     }
   },
@@ -27,7 +34,7 @@
     "model": "products.tag",
     "pk": 2,
     "fields": {
-      "name": "qwdsacdx",
+      "name": "Быстрая доставка",
       "slug": "qfads-IMGhMY"
     }
   },
@@ -35,7 +42,7 @@
     "model": "products.tag",
     "pk": 3,
     "fields": {
-      "name": "free",
+      "name": "Еще один тег",
       "slug": "fre1"
     }
   },
@@ -43,7 +50,7 @@
     "model": "products.tag",
     "pk": 4,
     "fields": {
-      "name": "not free",
+      "name": "Премиальный товар",
       "slug": "borfre"
     }
   },
@@ -60,6 +67,21 @@
       "product_image": "",
       "tags": [],
       "categories": []
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Специальный металлолом!",
+      "description": "1",
+      "date_joined": "2023-11-23T15:19:25.704Z",
+      "last_modified_date": "2023-11-23T15:19:12.303Z",
+      "price": 999.99,
+      "quantity": 0.0,
+      "product_image": "",
+      "tags": [],
+      "categories": [5]
     }
   },
   {
