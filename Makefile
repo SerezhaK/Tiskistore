@@ -5,7 +5,7 @@
 
 # Variables
 VENV_NAME := venv
-MANAGE_PY := $(VENV_NAME)/bin/python manage.py
+MANAGE_PY := backend/ manage.py
 
 # Colors
 YELLOW := \033[0;33m
@@ -17,7 +17,7 @@ GREEN := \033[0;32m
 # Create a virtual environment
 venv:
 	@echo "Creating virtual environment..."
-	python3 -m venv $(VENV_NAME)
+	cd backend && python3 -m venv $(VENV_NAME)
 	@echo "$(YELLOW)DONT FORGET TO ACTIVATE VENV AND RUN INSTALL$(NC)"
 
 # Install project dependencies
@@ -29,6 +29,7 @@ install:
 # Run database migrations
 migrate:
 	@echo "Running migrations..."
+
 	$(MANAGE_PY) makemigrations
 	$(MANAGE_PY) migrate
 
@@ -102,6 +103,7 @@ dc_clear:
 pull:
 	@echo "Pulling changes from origin master..."
 	git pull origin master
+	git submodule update --remote --merge
 
 help:
 	@echo ""
