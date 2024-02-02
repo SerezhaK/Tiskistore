@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+from phonenumber_field.phonenumber import PhoneNumber
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
@@ -18,6 +20,7 @@ class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [UserOwner]
+    lookup_field = 'order_time'
 
     def perform_create(self, serializer: OrderSerializer):
         user: User = self.request.user
@@ -56,5 +59,48 @@ class OrderViewSet(ModelViewSet):
     def get_all_users_order(self, request: Request):
         self.serializer = OrderListSerializer()
         orders = Order.objects.all()
+        serializer = self.get_serializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        methods=['POST'],
+        url_path='status_orders',
+        detail=False,
+        permission_classes=[IsStuff],
+    )
+    def get_all_status_order(self, request: Request):
+        self.serializer = OrderListSerializer()
+        if "status" not in request.data:
+            return Response(
+                "Ошибка, попробуйте еще раз."
+                " Проверьте правильность заполненных полей",
+                status=status.HTTP_200_OK
+            )
+        order_status = request.data["status"]
+        orders = Order.objects.filter(status=order_status)
+        serializer = self.get_serializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(
+        methods=['POST'],
+        url_path='by_phone_orders',
+        detail=False,
+        permission_classes=[IsStuff],
+    )
+    def get_order_by_phone_number(self, request: Request):
+        self.serializer = OrderListSerializer()
+        if "phone_number" not in request.data:
+            return Response(
+                "Ошибка, попробуйте еще раз."
+                " Проверьте правильность заполненных полей",
+                status=status.HTTP_200_OK
+            )
+        phone_number = request.data["phone_number"]
+        phone_number_valid = PhoneNumber.from_string(
+            phone_number=phone_number,
+            region='RU'
+        ).as_e164
+        user = get_object_or_404(User, phone_number=phone_number_valid)
+        orders = Order.objects.filter(user=user)
         serializer = self.get_serializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

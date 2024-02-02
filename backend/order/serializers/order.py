@@ -46,9 +46,7 @@ class OrderSerializer(serializers.ModelSerializer):
         ]
 
     def update(self, instance, validated_data):
-        order = Order.objects.get(pk=instance.id)
-        if (order.status != validated_data['status']
-                and not self.context["request"].user.is_staff):
+        if not self.context["request"].user.is_staff:
             raise serializers.ValidationError("Only admin can update status")
         return super().update(instance, validated_data)
 
