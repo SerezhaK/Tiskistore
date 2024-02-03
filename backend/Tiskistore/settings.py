@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-
 from pathlib import Path
 
 from django.utils.translation import gettext_lazy as _
@@ -141,14 +140,12 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 LANGUAGE_CODE = "ru-ru"
 
-
 LANGUAGES = [
     ('ru', _('Russian')),
 ]
 
 USE_I18N = True
 USE_L10N = True
-
 
 TIME_ZONE = "UTC"
 
@@ -168,8 +165,9 @@ CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', ]
 
 AUTH_USER_MODEL = 'users.User'
 
-
 REST_FRAMEWORK = {
+    'DATETIME_FORMAT': '%Y-%m-%d %H:%M',
+    'DATE_FORMAT': '%Y-%m-%d %H:%M',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],

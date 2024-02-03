@@ -21,6 +21,7 @@ class OrderViewSet(ModelViewSet):
     serializer_class = OrderSerializer
     permission_classes = [UserOwner]
     lookup_field = 'order_time'
+    lookup_url_kwarg = 'pk'
 
     def perform_create(self, serializer: OrderSerializer):
         user: User = self.request.user
@@ -73,7 +74,7 @@ class OrderViewSet(ModelViewSet):
         if "status" not in request.data:
             return Response(
                 "Ошибка, попробуйте еще раз."
-                " Проверьте правильность заполненных полей",
+                "Проверьте правильность заполненных полей",
                 status=status.HTTP_200_OK
             )
         order_status = request.data["status"]
