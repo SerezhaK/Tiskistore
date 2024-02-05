@@ -1,11 +1,10 @@
 import random
 from datetime import datetime
-
+from order.models.order import Order
 from rest_framework import serializers
+from users.serializers.users import UserListSerializer
 
 from .item import ItemSerializer
-from order.models.order import Order
-from users.serializers.users import UserListSerializer
 
 
 class OrderSerializer(serializers.ModelSerializer):
