@@ -20,8 +20,8 @@ class OrderViewSet(ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     permission_classes = [UserOwner]
-    lookup_field = 'order_time'
-    lookup_url_kwarg = 'pk'
+    lookup_field = 'pk'
+    lookup_url_kwarg = 'order_time'
 
     def perform_create(self, serializer: OrderSerializer):
         user: User = self.request.user
