@@ -14,17 +14,19 @@ NC := \033[0m
 GREEN := \033[0;32m
 
 
-# Create a virtual environment
-venv:
-	@echo "Creating virtual environment..."
-	cd backend && python3 -m venv $(VENV_NAME)
-	@echo "$(YELLOW)DONT FORGET TO ACTIVATE VENV AND RUN INSTALL$(NC)"
+## Create a virtual environment
+#venv:
+#	@echo "Creating virtual environment..."
+#	cd backend && python3 -m venv $(VENV_NAME)
+#	@echo "$(YELLOW)DONT FORGET TO ACTIVATE VENV AND RUN INSTALL$(NC)"
 
 # Install project dependencies
 install:
 	@echo "Installing dependencies..."
-	$(VENV_NAME)/bin/pip install -r requirements.txt
-	$(VENV_NAME)/bin/pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
+	cd backend
+	pip install --upgrade pip pip-tools
+	pip install -r requirements.txt
+	pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
 
 # Run database migrations
 migrate:
