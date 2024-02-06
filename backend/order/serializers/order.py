@@ -10,7 +10,7 @@ from .item import ItemSerializer
 class OrderSerializer(serializers.ModelSerializer):
     user = UserListSerializer(read_only=True)
     order_number = serializers.CharField(read_only=True)
-    status = serializers.CharField(read_only=True)
+    status = serializers.CharField()
     order_time = serializers.CharField(read_only=True)
     items = ItemSerializer(many=True, read_only=True)
 
@@ -47,6 +47,8 @@ class OrderSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         if not self.context["request"].user.is_staff:
             raise serializers.ValidationError("Only admin can update status")
+        order = Order.objects.get(pk=instance.id)
+        order.status = validated_data['status']
         return super().update(instance, validated_data)
 
 

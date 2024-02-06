@@ -4,15 +4,14 @@ from users.models.user import User
 
 
 class OrderStatusChoices(models.TextChoices):
-    WAITING_FOR_PAYMENT = "Ожидает оплаты"
-    CREATED_PAY = 'Создание транзакции'
+    WAITING_FOR_PAYMENT = "Ожидание звонка"
+    CREATED_PAY = 'Ожидание оплаты'
     DONE = "Закрыт"
     TIMEOUT = 'Время оплаты вышло'
 
 
 class Order(models.Model):
     status = models.TextField(
-        choices=OrderStatusChoices.choices,
         default=OrderStatusChoices.WAITING_FOR_PAYMENT
     )
     user = models.ForeignKey(

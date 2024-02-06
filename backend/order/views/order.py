@@ -44,8 +44,8 @@ class OrderViewSet(ModelViewSet):
     )
     def get_order_status_choise(self, request: Request):
         return Response({'order_status': (
-            "Ожидает оплаты",
-            "Создание транзакции",
+            "Ожидание звонка",
+            "Ожидание оплаты",
             "Закрыт",
             "Время оплаты вышло"
         )},
