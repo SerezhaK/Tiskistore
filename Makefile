@@ -14,11 +14,6 @@ NC := \033[0m
 GREEN := \033[0;32m
 
 
-## Create a virtual environment
-#venv:
-#	@echo "Creating virtual environment..."
-#	cd backend && python3 -m venv $(VENV_NAME)
-#	@echo "$(YELLOW)DONT FORGET TO ACTIVATE VENV AND RUN INSTALL$(NC)"
 
 # Install project dependencies
 install:

@@ -34,6 +34,7 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
             user = User.objects.create_superuser(
                 **validated_data
             )
+            user.set_is_active = True
         else:
             user = User.objects.create(
                 **validated_data
@@ -47,6 +48,12 @@ class UserCreateCustomSerializer(serializers.ModelSerializer):
         except serializers.ValidationError as exc:
             user.delete()
             raise exc
+
+    def update(self, instance, validated_data):
+        user = instance
+        if "is_staff" in validated_data:
+            user.is_staff = validated_data['is_staff']
+        return super().update(instance, validated_data)
 
 
 class UserListSerializer(serializers.ModelSerializer):

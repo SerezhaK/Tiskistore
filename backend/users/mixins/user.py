@@ -2,7 +2,7 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.request import Request
+from rest_framework.request import HttpRequest, Request
 from rest_framework.response import Response
 
 from ..models.user import User
@@ -50,7 +50,7 @@ class UserMixin:
         detail=False,
         permission_classes=[IsStuff],
     )
-    def admin_create(self, request):
+    def admin_create(self, request: HttpRequest):
         serializer = UserCreateCustomSerializer(data=request.data)
         if serializer.is_valid():
             serializer.create(
@@ -63,3 +63,18 @@ class UserMixin:
                 serializer.errors,
                 status=status.HTTP_204_NO_CONTENT
             )
+
+    @action(
+        methods=['POST'],
+        url_path='by_admin_user_change',
+        detail=True,
+        permission_classes=[IsStuff],
+    )
+    def by_admin_user_change(self, request: HttpRequest, pk: int):
+        serializer = UserCreateCustomSerializer()
+        user = User.objects.filter(pk=pk).first()
+        serializer.update(
+            user,
+            request.data,
+        )
+        return Response("Успешно!", status=status.HTTP_200_OK)
