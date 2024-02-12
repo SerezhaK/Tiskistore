@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework import mixins, viewsets
 
+from rest_framework import serializers
 from ..mixins.phone_number import PhoneNumberMixin
 from ..mixins.user import UserMixin
 from ..models.user import User
@@ -34,7 +35,9 @@ class UserViewSet(mixins.RetrieveModelMixin,
             serializer.save(is_active=True)
             return
         user = serializer.save(is_active=False)
-        send_phone_number_verification(
+        result = send_phone_number_verification(
             user=user,
             viewset_instance=self
         )
+        raise serializers.ValidationError(f'{result}')
+

@@ -182,8 +182,12 @@ FIXTURE_DIRS = [
 
 CACHES = {
     'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': 'redis://redis:6379/1',
+        "TIMEOUT": float(env.str('TIMEOUT')),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
     }
 }
 # Configure the phone_number_field (for django-phonenumber-field integration)
@@ -196,13 +200,13 @@ PHONENUMBER_DEFAULT_REGION = "RU"
 if PHONE_NUMBER_CONFIRM:
     TISKI_STORE_CONFIRM_KEY = 'user_confirm_{token}'
     TISKI_STORE_RESET_CODE = 'password_reset_{token}'
-    TISKI_STORE_USER_CONFIRM_TIMEOUT = 300
+    TISKI_STORE_USER_CONFIRM_TIMEOUT = float(env.str('TIMEOUT'))
     SMS_RU = {
         # Either password and login or api_id must be specified
         "API_ID": env.str('API_ID'),
-        "LOGIN": env.str('LOGIN'),
-        "PASSWORD": env.str('PASSWORD'),
-        "TEST": True,  # Sending in test mode defaults to False
-        "SENDER": 'sms',
-        "PARTNER_ID": 1111
+        # "LOGIN": env.str('LOGIN'),
+        # "PASSWORD": env.str('PASSWORD'),
+        "TEST": False,  # Sending in test mode defaults to False
+        "SENDER": env.str('SENDER'),
+        # "PARTNER_ID": 1111
     }

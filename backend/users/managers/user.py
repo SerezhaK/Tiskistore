@@ -13,7 +13,8 @@ class UserManager(_UserManager):
         if phone_number:
             phone_number = PhoneNumber.from_string(
                 phone_number=phone_number,
-                region='RU').as_e164
+                region='RU'
+            ).as_e164
 
         user = self.model(
             username=unicodedata.normalize(

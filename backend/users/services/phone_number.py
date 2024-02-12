@@ -34,7 +34,7 @@ def send_phone_number_verification(
 ):
     if not settings.PHONE_NUMBER_CONFIRM:
         return "Успешно!"
-    redis_key = str(random.randint(100000, 9999999))
+    redis_key = str(random.randint(1000000, 9999999))
     cache.set(
         user.user_id,
         {'redis_key': redis_key,
@@ -42,12 +42,15 @@ def send_phone_number_verification(
          },
         timeout=settings.TISKI_STORE_USER_CONFIRM_TIMEOUT
     )
-    message = f"Код подтверждения: {redis_key} \n Никому не сообщайте!"
+
+    message = f"Код подтверждения: {redis_key} Никому не сообщайте!"
     user_phone_number = user.phone_number.as_e164
+
     api = SmsRuApi()
-    api.send_one_sms(
+    result = api.send_one_sms(
         user_phone_number,
         message
     )
+
     return ("Код подтверждения отправлен на номер телефона:"
-            f" {user_phone_number}")
+            f" {result}")
