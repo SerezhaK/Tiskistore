@@ -47,10 +47,10 @@ def send_phone_number_verification(
     user_phone_number = user.phone_number.as_e164
 
     api = SmsRuApi()
-    result = api.send_one_sms(
+    api.send_one_sms(
         user_phone_number,
         message
     )
 
     return ("Код подтверждения отправлен на номер телефона:"
-            f" {result}")
+            f" {user_phone_number}")
