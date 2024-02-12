@@ -99,7 +99,7 @@ dc_clear:
 # Pull changes
 pull:
 	@echo "Pulling changes from origin master..."
-	git pull origin master
+	git pull origin
 	git submodule update --remote --merge
 
 help:
