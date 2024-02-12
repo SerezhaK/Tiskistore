@@ -23,18 +23,20 @@ More detailed information can be found on the website sms.ru.
     DB_NAME=
     POSTGRES_USER=
     POSTGRES_PASSWORD=
-    DB_HOST=db
+    DB_HOST=
     DB_PORT=
     
     SECRET_KEY=
-
+    
     API_ID=
+    SENDER=your-name
+    TIMEOUT=900
     LOGIN=
     PASSWORD=
     
-    DEBUG=
-    PHONE_NUMBER_CONFIRM=
-
+    DEBUG=1
+    PHONE_NUMBER_CONFIRM=0
+    
 ___
 
 ### Start project
