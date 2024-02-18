@@ -36,6 +36,9 @@ class OrderViewSet(ModelViewSet):
             cart.delete()
         return order
 
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
     @action(
         methods=['GET'],
         url_path='order_status',

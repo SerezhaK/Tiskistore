@@ -8,7 +8,11 @@ class UserOwner(permissions.BasePermission):
     def has_permission(self, request: HttpRequest, view):
         if not request.user.is_authenticated:
             return False
-        return True
+        if request.user.is_superuser or request.user.is_staff:
+            return True
+        if request.method in ["POST", "GET"]:
+            return True
+        return False
 
     def has_object_permission(self, request: HttpRequest, view, obj: User):
         if not request.user.is_authenticated:
