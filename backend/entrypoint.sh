@@ -1,4 +1,5 @@
 #!/bin/sh
+
 sed -ri 's/\r\n|\r/\n/g' entrypoint.sh
 
 python manage.py makemigrations

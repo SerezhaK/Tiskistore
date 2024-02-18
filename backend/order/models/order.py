@@ -3,16 +3,9 @@ from django.db import models
 from users.models.user import User
 
 
-class OrderStatusChoices(models.TextChoices):
-    WAITING_FOR_PAYMENT = "Ожидание звонка"
-    CREATED_PAY = 'Ожидание оплаты'
-    DONE = "Закрыт"
-    TIMEOUT = 'Время оплаты вышло'
-
-
 class Order(models.Model):
     status = models.TextField(
-        default=OrderStatusChoices.WAITING_FOR_PAYMENT
+        default="Ожидание звонка"
     )
     user = models.ForeignKey(
         User,
@@ -55,5 +48,5 @@ class Order(models.Model):
     def __str__(self):
         return f'Заказ {self.order_number}'
 
-    def to_pay(self):
+    def to_pay(self) -> int:
         return sum(item.total_price() for item in self.items.all())

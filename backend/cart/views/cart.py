@@ -10,6 +10,7 @@ class CartViewSet(mixins.RetrieveModelMixin,
                   viewsets.GenericViewSet, ):
     permission_classes = [permissions.IsAuthenticated]
     lookup_field = "product_id"
+    lookup_url_kwarg = 'order_time'
 
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user)
