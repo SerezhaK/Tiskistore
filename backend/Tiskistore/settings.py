@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'products',
     'users',
+    'text',
     'order',
     "phonenumber_field",
     "cart",
