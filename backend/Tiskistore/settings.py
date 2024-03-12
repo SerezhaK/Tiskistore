@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-
+import
 from django.utils.translation import gettext_lazy as _
 from environ import Env
 
@@ -30,7 +30,8 @@ DOCKER = env('DOCKER', default=False)
 PHONE_NUMBER_CONFIRM = env.bool('PHONE_NUMBER_CONFIRM')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=False)
+
 
 ALLOWED_HOSTS = ['*']
 
