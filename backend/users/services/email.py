@@ -34,7 +34,7 @@ def send_email_verification(user: User, viewset_instance):
         url_name='confirm',
         request=viewset_instance.request,
     )
-    confirm_link = (f'http://127.0.0.1/api/users/confirm/?'
+    confirm_link = (f'http://0.0.0.0:8000/api/users/confirm/?'
                     f'confirm_token={token}&user_id={user.pk}')
     message = f'Confirm your email: {confirm_link}'
     send_mail(
@@ -60,7 +60,7 @@ def send_email_reset_password(user: User, viewset_instance):
         url_name='confirm',
         request=viewset_instance.request,
     )
-    confirm_link = (f'http://127.0.0.1/api/users/reset-password-confirm/?'
+    confirm_link = (f'http://0.0.0.0:8000/api/users/reset-password-confirm/?'
                     f'confirm_token={token}&user_id={user.pk}')
     message = f'For set new password go to the link: {confirm_link}'
     send_mail(

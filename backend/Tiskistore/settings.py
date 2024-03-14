@@ -162,7 +162,7 @@ MEDIA_ROOT = 'media'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', ]
+CSRF_TRUSTED_ORIGINS = ['http://0.0.0.0:8000', ]
 
 AUTH_USER_MODEL = 'users.User'
 
