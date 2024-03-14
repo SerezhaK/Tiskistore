@@ -30,7 +30,8 @@ DOCKER = env('DOCKER', default=False)
 PHONE_NUMBER_CONFIRM = env.bool('PHONE_NUMBER_CONFIRM')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG', default=False)
+
 
 ALLOWED_HOSTS = ['*']
 
